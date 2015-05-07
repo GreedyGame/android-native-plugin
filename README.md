@@ -1,7 +1,7 @@
 GreedyGame Android Native Integration Guide
 ===================
 
-This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.6.jar](#publish-a-document).
+This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.6.jar](greedy-andorid-native/libs/GreedyGameAgent_v5.6.jar).
 
 #### Steps
 
@@ -106,7 +106,7 @@ Is is used as callback listener argument for GreedyAgent class
 	 * -1 = using no campaign
 	 * 0 = campaign already cached
 	 * 1 = new campaign found to download
-	 
+
 ##### `void onDownload(boolean success)`
 success true , If new branded contents are downloaded so that new scene can fetch assets from **getActivePath()**.
 
