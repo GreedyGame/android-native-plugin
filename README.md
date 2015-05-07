@@ -14,7 +14,7 @@ This is a complete guide to integrate GreedyGame plugin within your native andro
 Contains high-level classes encapsulating the overall GreedyGame ad flow and model.
 
 **Public Constructors**
-#####`GreedyGameAgent(Activity gameActivity, IAgentListner greedyListner)`
+##### `GreedyGameAgent(Activity gameActivity, IAgentListner greedyListner)`
 
 Constructs a new instance of GreedyGame handler.
 
@@ -22,55 +22,55 @@ Constructs a new instance of GreedyGame handler.
 
 **Method**
 
- - #####`public void init(String GameId, String []Units)`
+##### `public void init(String GameId, String []Units)`
 Lookup for new native campaign from server. 
 
 * GameId - Unique game profile id from panel.greedygame.com
 * Units - List of relative path of assets used in games. 
     Also register unit id can be used
     
- - `public String activeTheme()`
+##### `public String activeTheme()`
 Return Theme id of currently active and running theme
 
- - `public String newTheme()`
+##### `public String newTheme()`
 Return Theme id of new theme from server
 
- - `public void download()`
+##### `public void download()`
  Download branded assets for new campaign by unit-ids.
  *Should be used inside IAgentListner.onInit.*
 	
- - `public void downloadByPath()`
+##### `public void downloadByPath()`
  Download branded assets for new campaign by relative path.
  *Should be used inside IAgentListner.onInit.*
 	
- - `public void cancelDownload()`
+##### `public void cancelDownload()`
  Cancel current campaign download
 		
- - `public String getActivePath()`
+##### `public String getActivePath()`
  Return path of folder, where assets of activeTheme is stored.
 
 ----
 **Floating Ad Method**
 
-- `public void fetchHeadAd(String unit_id)`
+##### `public void fetchHeadAd(String unit_id)`
 Fetch floating AdHead with unit-id
 
-- `public void fetchHeadAd(String unit_id, float x, float y)`
+##### `public void fetchHeadAd(String unit_id, float x, float y)`
  Fetch floating AdHead with unit-id, at specific x, y with screen pixels
  
-- `public void removeHeadAd(String unit_id)`
+##### `public void removeHeadAd(String unit_id)`
 Hide floating AdHead with unit-id
 
 ----
 **Analytics Methods**
 As name suggest, put following method inside Andorid main acitivity method.
 
-- `public void onStart()`
-- `public void onResume()`
-- `public void onRestart()`
-- `public void onPause()`
-- `public void onStop()`
-- `public void onDestroy()`
+##### `public void onStart()`
+##### `public void onResume()`
+##### `public void onRestart()`
+##### `public void onPause()`
+##### `public void onStop()`
+##### `public void onDestroy()`
 
 For example
 ```
@@ -83,13 +83,13 @@ For example
 ----
 **Other Utilities Methods**
 
- - `public String get_verison()`
+##### `public String get_verison()`
 Return sdk version
 	
- - `public void setDebug(boolean b)`
+##### `public void setDebug(boolean b)`
 Set sdk into debug mode
 	
- - `public void useSecureConnection(boolean b)`
+##### `public void useSecureConnection(boolean b)`
 To use api with HTTPS
 
 
@@ -100,16 +100,17 @@ Is is used as callback listener argument for GreedyAgent class
 
 **Methods**
  
- - `void onInit(int response)`
+##### `void onInit(int response)`
  	response value indicate
 	 * -2 = loader busy right now
 	 * -1 = using no campaign
 	 * 0 = campaign already cached
 	 * 1 = new campaign found to download
- - `void onDownload(boolean success)`
+	 
+##### `void onDownload(boolean success)`
 success true , If new branded contents are downloaded so that new scene can fetch assets from **getActivePath()**.
 
- - `void onUnitClicked(boolean clicked)`
+##### `void onUnitClicked(boolean clicked)`
  clicked true, if floating adhead unit is clicked so that game developer can manage game pause.
 
 For example
