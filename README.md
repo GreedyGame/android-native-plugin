@@ -10,22 +10,25 @@ This is a complete guide to integrate GreedyGame plugin within your native andro
 ### Documentations
 #### GreedyGameAgent
 **Class Overview**
+
 Contains high-level classes encapsulating the overall GreedyGame ad flow and model.
 
 **Public Constructors**
-`GreedyGameAgent(Activity gameActivity, IAgentListner greedyListner)`
+#####`GreedyGameAgent(Activity gameActivity, IAgentListner greedyListner)`
+
 Constructs a new instance of GreedyGame handler.
 
 ----------
 
 **Method**
 
- - `public void init(String GameId, String []Units)` 
- 
+ - #####`public void init(String GameId, String []Units)`
 Lookup for new native campaign from server. 
+
 * GameId - Unique game profile id from panel.greedygame.com
 * Units - List of relative path of assets used in games. 
     Also register unit id can be used
+    
  - `public String activeTheme()`
 Return Theme id of currently active and running theme
 
@@ -148,3 +151,7 @@ class GG_Listner implements IAgentListner{
 		}
 	}
 ```
+
+
+
+
