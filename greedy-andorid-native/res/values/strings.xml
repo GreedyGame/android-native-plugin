@@ -1,0 +1,9 @@
+<resources>
+
+	<string name="app_name">Greedy Andorid Native</string>
+	<string name="sun">Sun</string>
+	<string name="grass">Grass</string>
+	<string name="sky">Sky</string>
+	<string name="start">Start</string>
+
+</resources>
