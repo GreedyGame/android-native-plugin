@@ -12,11 +12,10 @@ This is a complete guide to integrate GreedyGame plugin within your native andro
 
 1. **Define and implement com.greedygame.android.IAgentListner**
 Its use to handle callback and events as
-	 * -2 = loader busy right now
-	 * -1 = using no campaign
-	 * 0 = campaign already cached
-	 * 1 = new campaign found to download
-	 * 2 = theme is downloaded
+	 * BUSY = loader busy right now
+	 * CAMPAIGN_NOT_AVAILABLE = using no campaign
+	 * CAMPAIGN_CACHED = campaign already cached
+	 * CAMPAIGN_FOUND = new campaign found to download
 
 For example as
 
@@ -55,20 +54,18 @@ class GG_Listner implements com.greedygame.android.IAgentListner{
 		}
 
 		@Override
-		public void onInit(int arg1) {
-			if(arg1 == 1){
+		public void onInit(OnINIT_EVENT arg1) {
+
+			if(arg1 == OnINIT_EVENT.CAMPAIGN_FOUND){
 				ggAgent.downloadByPath();
 			}
 			
-			if(arg1 >= 0 || arg1 <= 2){
+			if(arg1 == OnINIT_EVENT.CAMPAIGN_CACHED || arg1 == OnINIT_EVENT.CAMPAIGN_FOUND){
 				isNew = true;
-				if(arg1 >= 0 || arg1 <= 1){
-					ggAgent.fetchHeadAd("unit-363");
-				}
+				ggAgent.fetchHeadAd("unit-363");
 			}else{
 				isNew = false;
 			}
-			
 			
 			sun = (ImageView)findViewById(R.id.sun);
 			if(isNew){

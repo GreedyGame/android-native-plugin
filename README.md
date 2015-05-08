@@ -1,7 +1,7 @@
 GreedyGame Android Native Integration Guide
 ===================
 
-This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.6.jar](greedy-andorid-native/libs/GreedyGameAgent_v5.6.jar).
+This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.6.1.jar](greedy-andorid-native/libs/GreedyGameAgent_v5.6.1.jar).
 
 #### Steps
 
@@ -100,12 +100,12 @@ Is is used as callback listener argument for GreedyAgent class
 
 **Methods**
  
-##### `void onInit(int response)`
+##### `void onInit(OnINIT_EVENT response)`
  	response value indicate
-	 * -2 = loader busy right now
-	 * -1 = using no campaign
-	 * 0 = campaign already cached
-	 * 1 = new campaign found to download
+	 * BUSY = loader busy right now
+	 * CAMPAIGN_NOT_AVAILABLE = using no campaign
+	 * CAMPAIGN_CACHED = campaign already cached
+	 * CAMPAIGN_FOUND = new campaign found to download
 
 ##### `void onDownload(boolean success)`
 success true , If new branded contents are downloaded so that new scene can fetch assets from **getActivePath()**.
@@ -125,19 +125,19 @@ class GG_Listner implements IAgentListner{
 	}
 
 	@Override
-	public void onInit(int response) {
+	public void onInit(OnINIT_EVENT response) {
 		/*
-		 * -2 = loader busy right now
-		 * -1 = using no campaign
-		 * 0 = campaign already cached
-		 * 1 = new campaign found to download
+	 	 * BUSY = loader busy right now
+		 * CAMPAIGN_NOT_AVAILABLE = using no campaign
+	 	 * CAMPAIGN_CACHED = campaign already cached
+	 	 * CAMPAIGN_FOUND = new campaign found to download
 		 */
 
-		if(response == 1){
+		if(response == OnINIT_EVENT.CAMPAIGN_FOUND){
 			ggAgent.downloadByPath();
-		} else if(response == 0){
+		} else if(response == OnINIT_EVENT.CAMPAIGN_CACHED){
 			//Start game scene with content from getActivePath
-		} else if(response == -1){
+		} else if(response == OnINIT_EVENT.CAMPAIGN_NOT_AVAILABLE){
 			//Start game with default content
 		}
 	}
