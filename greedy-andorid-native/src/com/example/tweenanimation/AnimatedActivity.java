@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.greedygame.android.GreedyGameAgent;
+import com.greedygame.android.GreedyGameAgent.OnINIT_EVENT;
 
 public class AnimatedActivity extends Activity {
 	
@@ -40,6 +41,7 @@ public class AnimatedActivity extends Activity {
 		@Override
 		public void onDownload(boolean success) {
 			if(success){
+				isNew = true;
 				if(_notiBuilder != null){
 					_notiBuilder.setContentText("Download complete")
 		        		.setProgress(0,0,false)
@@ -59,17 +61,26 @@ public class AnimatedActivity extends Activity {
 			}
 		}
 
+
 		@Override
-		public void onInit(int arg1) {
-			if(arg1 == 1){
+		public void onUnitClicked(boolean isPause) {
+			// TODO Auto-generated method stub
+			// Handle pause and un-pause
+		}
+
+		@Override
+		public void onInit(OnINIT_EVENT arg1) {
+			if(arg1 == OnINIT_EVENT.CAMPAIGN_FOUND){
 				ggAgent.downloadByPath();
 			}
 			
-			if(arg1 >= 0 || arg1 <= 2){
+			if(arg1 == OnINIT_EVENT.CAMPAIGN_CACHED || arg1 == OnINIT_EVENT.CAMPAIGN_FOUND){
+				ggAgent.fetchHeadAd("unit-363");
+			}
+			
+			if(	arg1 == OnINIT_EVENT.CAMPAIGN_CACHED || 
+				arg1 == OnINIT_EVENT.CAMPAIGN_FOUND){
 				isNew = true;
-				if(arg1 >= 0 || arg1 <= 1){
-					ggAgent.fetchHeadAd("unit-363");
-				}
 			}else{
 				isNew = false;
 			}
@@ -84,12 +95,6 @@ public class AnimatedActivity extends Activity {
 			
 			startButton.setEnabled(true);
 			
-		}
-
-		@Override
-		public void onUnitClicked(boolean isPause) {
-			// TODO Auto-generated method stub
-			// Handle pause and un-pause
 		}
 		
 	}
