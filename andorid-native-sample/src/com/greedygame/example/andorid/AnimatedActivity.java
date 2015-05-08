@@ -1,4 +1,4 @@
-package com.example.tweenanimation;
+package com.greedygame.example.andorid;
 
 
 import android.app.Activity;
