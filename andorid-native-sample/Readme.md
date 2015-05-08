@@ -64,41 +64,36 @@ This is a complete guide to integrate GreedyGame plugin within your native andro
 	```
     
 4. Adding relative permission and service tag in manifest.xml
-	```xml
-    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.greedygame.example.andorid"
-	android:versionCode="1"
-	android:versionName="1.0" >
-    
-      <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-      <uses-permission android:name="android.permission.INTERNET" />
-      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-      <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-      <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-      <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-      
-      <application>
-      	<service
-		    android:name="com.greedygame.android.BackgroundService"
-		    android:enabled="true" ></service>
-    	<receiver 
-        	android:name="com.greedygame.android.GreedyAppReceiver" 
-        	android:enabled="true" 
-        	android:priority="100">
-          <intent-filter>
-            <action android:name="com.android.vending.INSTALL_REFERRER" />
-            <action android:name="android.intent.action.PACKAGE_INSTALL" />
-            <action android:name="android.intent.action.PACKAGE_ADDED" />
-            <action android:name="android.intent.action.PACKAGE_REMOVED" />
-            <action android:name="android.intent.action.PACKAGE_CHANGED" />
-            <action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
-            <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
-            <action android:name="android.intent.action.PACKAGE_REPLACED" />
-            <data android:scheme="package" />
-          </intent-filter>
-        </receiver>
-      </application>
+	```xml   
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+  <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  
+  <application>
+  	<service
+	    android:name="com.greedygame.android.BackgroundService"
+	    android:enabled="true" ></service>
+	<receiver 
+    	android:name="com.greedygame.android.GreedyAppReceiver" 
+    	android:enabled="true" 
+    	android:priority="100">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER" />
+        <action android:name="android.intent.action.PACKAGE_INSTALL" />
+        <action android:name="android.intent.action.PACKAGE_ADDED" />
+        <action android:name="android.intent.action.PACKAGE_REMOVED" />
+        <action android:name="android.intent.action.PACKAGE_CHANGED" />
+        <action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
+        <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+        <action android:name="android.intent.action.PACKAGE_REPLACED" />
+        <data android:scheme="package" />
+      </intent-filter>
+    </receiver>
+  </application>
     ```
 

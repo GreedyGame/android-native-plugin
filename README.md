@@ -73,12 +73,12 @@ As name suggest, put following method inside Andorid main acitivity method.
 ##### `public void onDestroy()`
 
 For example
-```
+```java
 @Override
-	protected void onResume(){
-    	super.onResume();
-    	ggAgent.onResume();
-    }
+protected void onResume(){
+    super.onResume();
+    ggAgent.onResume();
+}
 ```
 ----
 **Other Utilities Methods**
@@ -117,30 +117,38 @@ For example
 
 
 
-```
+```java
 class GG_Listner implements IAgentListner{
 	@Override
 	public void onProgress(float progress) {
 		//Use this for showing progress bar
+        Log.i("GreedyGame Sample", "Downloaded = "+progress+"%");
 	}
-
-	@Override
-	public void onInit(OnINIT_EVENT response) {
-		/*
-	 	 * BUSY = loader busy right now
-		 * CAMPAIGN_NOT_AVAILABLE = using no campaign
-	 	 * CAMPAIGN_CACHED = campaign already cached
-	 	 * CAMPAIGN_FOUND = new campaign found to download
-		 */
-
-		if(response == OnINIT_EVENT.CAMPAIGN_FOUND){
-			ggAgent.downloadByPath();
-		} else if(response == OnINIT_EVENT.CAMPAIGN_CACHED){
-			//Start game scene with content from getActivePath
-		} else if(response == OnINIT_EVENT.CAMPAIGN_NOT_AVAILABLE){
-			//Start game with default content
+    
+    @Override
+	public void onDownload(boolean success) {
+		if(success){
+			isBranded = true;
 		}
 	}
+
+    @Override
+    public void onInit(OnINIT_EVENT response) {
+    	if(response == OnINIT_EVENT.CAMPAIGN_FOUND){
+    		ggAgent.downloadByPath();
+    	}
+
+    	if(	response == OnINIT_EVENT.CAMPAIGN_CACHED || 
+    		response == OnINIT_EVENT.CAMPAIGN_FOUND){
+    		isBranded = true;
+    	}else{
+    		isBranded = false;
+    	}
+
+    	if(isBranded){
+    		ggAgent.fetchHeadAd("unit-363");
+    	}
+    }
 
 
 	@Override
@@ -152,6 +160,43 @@ class GG_Listner implements IAgentListner{
 		}
 	}
 ```
+
+#### Manifest Requirement
+
+```xml
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+<application>
+	<service
+    android:name="com.greedygame.android.BackgroundService"
+    android:enabled="true" ></service>
+<receiver 
+	android:name="com.greedygame.android.GreedyAppReceiver" 
+	android:enabled="true" 
+	android:priority="100">
+  <intent-filter>
+    <action android:name="com.android.vending.INSTALL_REFERRER" />
+    <action android:name="android.intent.action.PACKAGE_INSTALL" />
+    <action android:name="android.intent.action.PACKAGE_ADDED" />
+    <action android:name="android.intent.action.PACKAGE_REMOVED" />
+    <action android:name="android.intent.action.PACKAGE_CHANGED" />
+    <action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
+    <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+    <action android:name="android.intent.action.PACKAGE_REPLACED" />
+    <data android:scheme="package" />
+  </intent-filter>
+</receiver>
+</application>
+```
+---
+### For Hello Tutorial, goto [andorid-native-sample](andorid-native-sample)  
 
 
 
