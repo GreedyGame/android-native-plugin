@@ -196,6 +196,28 @@ class GG_Listner implements IAgentListner{
 </application>
 ```
 ---
+### Some helper functions
+To fetch drawable from android res
+
+```java
+private Bitmap getBitmapByResid(int resid){	
+	String resName = this.getApplicationContext().getResources().getResourceEntryName(resid);
+	String[]  exts = {"png", "jpg", "gif"};
+	File file = null;
+	for(int i = 0; i<exts.length; i++){
+		file = new File(ggAgent.getActivePath() + "/" + resName+"."+exts[i]);
+		if(file.exists()){
+			break;
+		}
+	}
+	if(file == null){
+		return null;
+	}
+	return BitmapFactory.decodeFile(file.getAbsolutePath());
+}
+```
+
+---
 ### For Hello Tutorial, goto [andorid-native-sample](andorid-native-sample)  
 
 
