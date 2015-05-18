@@ -65,25 +65,25 @@ This is a complete guide to integrate GreedyGame plugin within your native andro
     
 4. Adding relative permission and service tag in manifest.xml
 	```xml   
-  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-  <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
   
-  <application>
-  	<service
-	    android:name="com.greedygame.android.BackgroundService"
-	    android:enabled="true" ></service>
-	<receiver 
-    	android:name="com.greedygame.android.GreedyAppReceiver" 
-    	android:enabled="true" 
-    	android:priority="100">
+<application>
+  <service
+      android:name="com.greedygame.android.GreedyBackgroundService"
+      android:enabled="true" ></service>
+  
+    <receiver 
+          android:name="com.greedygame.android.GreedyAppReceiver" 
+          android:enabled="true" 
+          android:priority="100">
       <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER" />
         <action android:name="android.intent.action.PACKAGE_INSTALL" />
         <action android:name="android.intent.action.PACKAGE_ADDED" />
         <action android:name="android.intent.action.PACKAGE_REMOVED" />
@@ -94,6 +94,15 @@ This is a complete guide to integrate GreedyGame plugin within your native andro
         <data android:scheme="package" />
       </intent-filter>
     </receiver>
-  </application>
+    
+    <receiver 
+          android:name="com.greedygame.android.GreedyRefReceiver" 
+          android:enabled="true" 
+          android:priority="100">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER" />
+      </intent-filter>
+    </receiver>
+</application>
     ```
 

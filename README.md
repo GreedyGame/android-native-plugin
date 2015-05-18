@@ -1,7 +1,7 @@
 GreedyGame Android Native Integration Guide
 ===================
 
-This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.6.1.jar](current-sdk/GreedyGameAgent_v5.6.1.jar).
+This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.6.1.jar](current-sdk/GreedyGameAgent_v5.6.3.jar).
 
 #### Steps
 
@@ -175,24 +175,33 @@ class GG_Listner implements IAgentListner{
 
 <application>
 	<service
-    android:name="com.greedygame.android.BackgroundService"
-    android:enabled="true" ></service>
-<receiver 
-	android:name="com.greedygame.android.GreedyAppReceiver" 
-	android:enabled="true" 
-	android:priority="100">
-  <intent-filter>
-    <action android:name="com.android.vending.INSTALL_REFERRER" />
-    <action android:name="android.intent.action.PACKAGE_INSTALL" />
-    <action android:name="android.intent.action.PACKAGE_ADDED" />
-    <action android:name="android.intent.action.PACKAGE_REMOVED" />
-    <action android:name="android.intent.action.PACKAGE_CHANGED" />
-    <action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
-    <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
-    <action android:name="android.intent.action.PACKAGE_REPLACED" />
-    <data android:scheme="package" />
-  </intent-filter>
-</receiver>
+	    android:name="com.greedygame.android.GreedyBackgroundService"
+	    android:enabled="true" ></service>
+	
+    <receiver 
+        	android:name="com.greedygame.android.GreedyAppReceiver" 
+        	android:enabled="true" 
+        	android:priority="100">
+      <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_INSTALL" />
+        <action android:name="android.intent.action.PACKAGE_ADDED" />
+        <action android:name="android.intent.action.PACKAGE_REMOVED" />
+        <action android:name="android.intent.action.PACKAGE_CHANGED" />
+        <action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
+        <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+        <action android:name="android.intent.action.PACKAGE_REPLACED" />
+        <data android:scheme="package" />
+      </intent-filter>
+    </receiver>
+    
+   	<receiver 
+        	android:name="com.greedygame.android.GreedyRefReceiver" 
+        	android:enabled="true" 
+        	android:priority="100">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER" />
+      </intent-filter>
+    </receiver>
 </application>
 ```
 ---
