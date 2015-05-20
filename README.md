@@ -148,6 +148,7 @@ class GG_Listner implements IAgentListner{
 			//resume/unpause game
 		}
 	}
+}
 ```
 
 #### Manifest Requirement
