@@ -1,7 +1,7 @@
 GreedyGame Android Native Integration Guide
 ===================
 
-This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.6.1.jar](current-sdk/GreedyGameAgent_v5.6.3.jar).
+This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.6.3.jar](current-sdk/GreedyGameAgent_v5.6.3.jar).
 
 #### Steps
 
@@ -22,26 +22,19 @@ Constructs a new instance of GreedyGame handler.
 
 **Method**
 
-##### `public void init(String GameId, String []Units)`
+##### `public void init(String GameId, String []Units, FETCH_TYPE)`
 Lookup for new native campaign from server. 
 
 * GameId - Unique game profile id from panel.greedygame.com
 * Units - List of relative path of assets used in games. 
     Also register unit id can be used
+* FETCH_TYPE - it can be FETCH_TYPE.DOWNLOAD_BY_PATH or FETCH_TYPE.DOWNLOAD_BY_ID, to fetch units by relative path or u_id
     
 ##### `public String activeTheme()`
 Return Theme id of currently active and running theme
 
 ##### `public String newTheme()`
 Return Theme id of new theme from server
-
-##### `public void download()`
- Download branded assets for new campaign by unit-ids.
- *Should be used inside IAgentListner.onInit.*
-	
-##### `public void downloadByPath()`
- Download branded assets for new campaign by relative path.
- *Should be used inside IAgentListner.onInit.*
 	
 ##### `public void cancelDownload()`
  Cancel current campaign download
@@ -134,10 +127,6 @@ class GG_Listner implements IAgentListner{
 
     @Override
     public void onInit(OnINIT_EVENT response) {
-    	if(response == OnINIT_EVENT.CAMPAIGN_FOUND){
-    		ggAgent.downloadByPath();
-    	}
-
     	if(	response == OnINIT_EVENT.CAMPAIGN_CACHED || 
     		response == OnINIT_EVENT.CAMPAIGN_FOUND){
     		isBranded = true;
@@ -177,31 +166,31 @@ class GG_Listner implements IAgentListner{
 	<service
 	    android:name="com.greedygame.android.GreedyBackgroundService"
 	    android:enabled="true" ></service>
-	
-    <receiver 
-        	android:name="com.greedygame.android.GreedyAppReceiver" 
-        	android:enabled="true" 
-        	android:priority="100">
-      <intent-filter>
-        <action android:name="android.intent.action.PACKAGE_INSTALL" />
-        <action android:name="android.intent.action.PACKAGE_ADDED" />
-        <action android:name="android.intent.action.PACKAGE_REMOVED" />
-        <action android:name="android.intent.action.PACKAGE_CHANGED" />
-        <action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
-        <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
-        <action android:name="android.intent.action.PACKAGE_REPLACED" />
-        <data android:scheme="package" />
-      </intent-filter>
+
+	<receiver 
+	    android:name="com.greedygame.android.GreedyAppReceiver" 
+	    android:enabled="true" 
+	    android:priority="100">
+    	<intent-filter>
+	    	<action android:name="android.intent.action.PACKAGE_INSTALL" />
+	    	<action android:name="android.intent.action.PACKAGE_ADDED" />
+	    	<action android:name="android.intent.action.PACKAGE_REMOVED" />
+	    	<action android:name="android.intent.action.PACKAGE_CHANGED" />
+	    	<action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
+	    	<action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+	    	<action android:name="android.intent.action.PACKAGE_REPLACED" />
+	    	<data android:scheme="package" />
+	  	</intent-filter>
     </receiver>
-    
-   	<receiver 
-        	android:name="com.greedygame.android.GreedyRefReceiver" 
-        	android:enabled="true" 
-        	android:priority="100">
-      <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER" />
-      </intent-filter>
-    </receiver>
+
+	<receiver 
+	    android:name="com.greedygame.android.GreedyRefReceiver" 
+	    android:enabled="true" 
+	    android:priority="100">
+	  	<intent-filter>
+	    	<action android:name="com.android.vending.INSTALL_REFERRER" />
+	  	</intent-filter>
+	</receiver>
 </application>
 ```
 ---
