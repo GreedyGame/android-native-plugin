@@ -1,7 +1,7 @@
 Tutorial to Integrate GreedyGame SDK to native android
 ===================
 
-This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.6.1.jar](libs/GreedyGameAgent_v5.6.1.jar).
+This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.6.3.jar](libs/GreedyGameAgent_v5.6.3.jar).
 
 #### Profile setup
 
@@ -31,17 +31,12 @@ This is a complete guide to integrate GreedyGame plugin within your native andro
 
         @Override
         public void onInit(OnINIT_EVENT arg1) {
-            if(arg1 == OnINIT_EVENT.CAMPAIGN_FOUND){
-                ggAgent.downloadByPath();
-            }
-
             if(arg1 == OnINIT_EVENT.CAMPAIGN_CACHED || 
                arg1 == OnINIT_EVENT.CAMPAIGN_FOUND){
                 isBranded = true;
             }else{
                 isBranded = false;
             }
-
         }
 
         @Override
@@ -60,7 +55,7 @@ This is a complete guide to integrate GreedyGame plugin within your native andro
 3. Declare and call GreedyGameAgent object, as
 	```java
 	ggAgent = new GreedyGameAgent(currentActivity, new GG_Listner());
-	ggAgent.init("68712536", units);
+	ggAgent.init("68712536", units, FETCH_TYPE.DOWNLOAD_BY_PATH);
 	```
     
 4. Adding relative permission and service tag in manifest.xml
@@ -73,36 +68,36 @@ This is a complete guide to integrate GreedyGame plugin within your native andro
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-  
+
 <application>
-  <service
-      android:name="com.greedygame.android.GreedyBackgroundService"
-      android:enabled="true" ></service>
-  
-    <receiver 
-          android:name="com.greedygame.android.GreedyAppReceiver" 
-          android:enabled="true" 
-          android:priority="100">
-      <intent-filter>
-        <action android:name="android.intent.action.PACKAGE_INSTALL" />
-        <action android:name="android.intent.action.PACKAGE_ADDED" />
-        <action android:name="android.intent.action.PACKAGE_REMOVED" />
-        <action android:name="android.intent.action.PACKAGE_CHANGED" />
-        <action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
-        <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
-        <action android:name="android.intent.action.PACKAGE_REPLACED" />
-        <data android:scheme="package" />
-      </intent-filter>
+	<service
+	    android:name="com.greedygame.android.GreedyBackgroundService"
+	    android:enabled="true" ></service>
+
+	<receiver 
+	    android:name="com.greedygame.android.GreedyAppReceiver" 
+	    android:enabled="true" 
+	    android:priority="100">
+    	<intent-filter>
+	    	<action android:name="android.intent.action.PACKAGE_INSTALL" />
+	    	<action android:name="android.intent.action.PACKAGE_ADDED" />
+	    	<action android:name="android.intent.action.PACKAGE_REMOVED" />
+	    	<action android:name="android.intent.action.PACKAGE_CHANGED" />
+	    	<action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
+	    	<action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+	    	<action android:name="android.intent.action.PACKAGE_REPLACED" />
+	    	<data android:scheme="package" />
+	  	</intent-filter>
     </receiver>
-    
-    <receiver 
-          android:name="com.greedygame.android.GreedyRefReceiver" 
-          android:enabled="true" 
-          android:priority="100">
-      <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER" />
-      </intent-filter>
-    </receiver>
+
+	<receiver 
+	    android:name="com.greedygame.android.GreedyRefReceiver" 
+	    android:enabled="true" 
+	    android:priority="100">
+	  	<intent-filter>
+	    	<action android:name="com.android.vending.INSTALL_REFERRER" />
+	  	</intent-filter>
+	</receiver>
 </application>
     ```
 
