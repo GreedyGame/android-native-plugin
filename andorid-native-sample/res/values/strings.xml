@@ -5,5 +5,6 @@
 	<string name="grass">Grass</string>
 	<string name="sky">Sky</string>
 	<string name="start">Start</string>
+	<string name="gg_splash">Greedy Splash</string>
 
 </resources>
