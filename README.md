@@ -3,6 +3,10 @@ GreedyGame Android Native Integration Guide
 
 This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.7.1.jar](current-sdk/GreedyGameAgent_v5.7.1.jar).
 
+| Original       | Dynamic Theme      |
+| ------------- | ----------- |
+| ![Sun Original Theme](screen-shots/sun.png?raw=true "Sun Original Theme" ) | ![Moon Dynamically changed Theme](screen-shots/moon.png?raw=true "Moon Dynamically changed Theme" ) |
+
 #### Steps
 
 * Paste jar to your android project's libs folder or directly add to build path
