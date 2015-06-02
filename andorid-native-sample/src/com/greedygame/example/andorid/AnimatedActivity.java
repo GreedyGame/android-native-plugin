@@ -18,8 +18,6 @@ public class AnimatedActivity extends Activity {
 	private ImageView sun = null;
 	private String themePath = null;
 
-
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,6 +53,7 @@ public class AnimatedActivity extends Activity {
 		startButton.setText("Start");
 		startButton.setEnabled(true);
 	}
+
 	@Override
 	public void onResume(){
 		super.onResume();
