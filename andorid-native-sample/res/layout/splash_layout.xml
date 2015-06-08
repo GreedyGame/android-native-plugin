@@ -4,6 +4,30 @@
 	android:layout_height="match_parent"
 	tools:context=".SplashScreenActivity" >
 
+	<ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="20dp"
+        android:indeterminate="false"
+        
+        android:max="100"
+        android:maxHeight="3000dp"
+        android:minWidth="270dp"
+        android:progress="1" 
+        />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/progressBar1"
+        android:layout_below="@+id/progressBar1"/>
 	<ImageView
 	    android:id="@+id/gg_splash"
 	    android:layout_width="fill_parent"
