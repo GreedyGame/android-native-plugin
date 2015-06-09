@@ -2,10 +2,14 @@ package com.greedygame.example.andorid;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.AvoidXfermode.Mode;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.greedygame.android.GreedyGameAgent;
@@ -19,6 +23,10 @@ public class SplashScreenActivity extends Activity {
 	private TextView loadingView = null;
 	private float downloadProgress = 0;
 	private Runnable updateProgress = null;
+	private ProgressBar progressBar;
+	 
+	
+	 
 	class GG_Listner implements com.greedygame.android.IAgentListner{
 
 		@Override
@@ -49,30 +57,37 @@ public class SplashScreenActivity extends Activity {
 		
 	}
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-    	setContentView(R.layout.splash_layout);
-    	
-    	loadingView = (TextView) findViewById(R.id.loadingView);
-		updateProgress = new Runnable() {
-		     @Override
-		     public void run() {
-		    	 loadingView.setText("Loading... ["+downloadProgress+"% ]");
-		    }
+	public void onCreate(Bundle savedInstanceState)
+	{
+		  super.onCreate(savedInstanceState);
+		  setContentView(R.layout.splash_layout);
+		  progressBar = (ProgressBar) findViewById(R.id.progressbar2);
+		  
+		 
+		loadingView = (TextView) findViewById(R.id.loadingView);
+		updateProgress = new Runnable() 
+		{
+			@Override
+			public void run() 
+			{
+				progressBar.setProgress((int)downloadProgress);
+				loadingView.setText("Loading... ["+(int)downloadProgress+"% ]");
+			}
 		};
-		
 		ggAgent = new GreedyGameAgent(this, new GG_Listner());
 		ggAgent.setCurrentActivity(this);
 		ggAgent.setDebug(true);
 		ggAgent.init("68712536", units, FETCH_TYPE.DOWNLOAD_BY_PATH);
-
 		Button b = (Button) findViewById(R.id.button1);
-		b.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	launch();
-            }
-        });
+		b.setOnClickListener(new View.OnClickListener() 
+		{
+			public void onClick(View v) 
+			{
+	           	launch();
+	        }
+	    });
 	}
+	
 	
 	private void launch(){
 		Log.i("Demo", "launch");
