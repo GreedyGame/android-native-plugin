@@ -24,9 +24,9 @@ public class SplashScreenActivity extends Activity {
 	private float downloadProgress = 0;
 	private Runnable updateProgress = null;
 	private ProgressBar progressBar;
-	 private int progressStatus = 0;
-	 private TextView textView;
-	 private Handler handler = new Handler();
+	 
+	
+	 
 	class GG_Listner implements com.greedygame.android.IAgentListner{
 
 		@Override
@@ -61,39 +61,9 @@ public class SplashScreenActivity extends Activity {
 	{
 		  super.onCreate(savedInstanceState);
 		  setContentView(R.layout.splash_layout);
-		  progressBar = (ProgressBar) findViewById(R.id.progressBar1);
-		  textView = (TextView) findViewById(R.id.textView1);
+		  progressBar = (ProgressBar) findViewById(R.id.progressbar2);
+		  
 		 
-		  /* Start long running operation in a background thread
-		   * to run a mock progress bar
-		  new Thread(new Runnable() 
-		  {
-		     public void run()
-		     
-		     {
-		        while (progressStatus < 100)
-		        {
-		           progressStatus += 1;
-		           handler.post(new Runnable() 
-		           {
-		        	   public void run()
-		        	   {
-		        		   progressBar.setProgress(progressStatus);
-		        		   textView.setText(progressStatus+"/"+progressBar.getMax());
-		        	   }
-		           });
-		           try
-		           {
-		               Thread.sleep(200);
-		           }
-		           catch (InterruptedException e) 
-		           {
-		        	   e.printStackTrace();
-		           }
-		        }
-		     }
-		 }).start();
-		 */
 		loadingView = (TextView) findViewById(R.id.loadingView);
 		updateProgress = new Runnable() 
 		{
@@ -101,7 +71,7 @@ public class SplashScreenActivity extends Activity {
 			public void run() 
 			{
 				progressBar.setProgress((int)downloadProgress);
-//				loadingView.setText("Loading... ["+downloadProgress+"% ]");
+				loadingView.setText("Loading... ["+(int)downloadProgress+"% ]");
 			}
 		};
 		ggAgent = new GreedyGameAgent(this, new GG_Listner());
