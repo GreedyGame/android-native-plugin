@@ -1,7 +1,7 @@
 Tutorial to Integrate GreedyGame SDK to native android
 ===================
 
-This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.7.1.jar](libs/GreedyGameAgent_v5.7.1.jar).
+This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v6.jar](libs/GreedyGameAgent_v6.jar).
 #### Profile setup
 
 * To setup game-profile at panel.greedygame.com visit [http://www.developer.greedygame.com/i18n-panel-getting-started-guide/] 

@@ -1,7 +1,7 @@
 GreedyGame Android Native Integration Guide
 ===================
 
-This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v5.7.1.jar](current-sdk/GreedyGameAgent_v5.7.1.jar).
+This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v6.jar](current-sdk/GreedyGameAgent_v6.jar).
 
 | Original       | Dynamic Theme      |
 | ------------- | ----------- |
@@ -68,6 +68,7 @@ As name suggest, put following method inside Andorid main acitivity method.
 ##### `public void onPause()`
 ##### `public void onStop()`
 ##### `public void onDestroy()`
+##### `public void onCustomEvent(String eventName)`
 
 For example
 ```java
