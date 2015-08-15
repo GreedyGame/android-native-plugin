@@ -20,7 +20,7 @@ class Panel:
 
     def login(self, email, password):
         print "Logging for %s" % (email,)
-        url =  "https://api.greedygame.com/users/authenticate/auth?format=json"
+        url =  "http://rest.greedygame.com/users/authenticate/auth?format=json"
         values = {'email': email, 'password': password}
         resp = requests.post(url, data=values, allow_redirects=True)
 
@@ -30,7 +30,7 @@ class Panel:
 
     def check(self, gameId, path):
         print "Checking %s" % (path,)
-        url = "https://api.greedygame.com/v1/units/%s/check?format=json" % (gameId,)
+        url = "https://rest.greedygame.com/v1/units/%s/check?format=json" % (gameId,)
         checksum = hashlib.md5(open(path, 'rb').read()).hexdigest()
         headers={"Authorization":"Token " + self.auth_token}
 
@@ -51,7 +51,7 @@ class Panel:
 
     def uploadAsset(self, gameId, path):
         print "Uploading %s" % (path,)
-        url = "https://api.greedygame.com/v1/units/%s?format=json" % (gameId,)
+        url = "https://rest.greedygame.com/v1/units/%s?format=json" % (gameId,)
         files = {'creative': open(path, 'rb')}
         headers={"Authorization":"Token " + self.auth_token}
 

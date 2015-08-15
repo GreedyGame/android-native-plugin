@@ -36,6 +36,7 @@ public class SplashScreenActivity extends Activity {
 		@Override
 		public void onDownload(boolean success) {
 			loadingView.setText("Loaded");
+			launch();
 		}
 
 
@@ -49,6 +50,7 @@ public class SplashScreenActivity extends Activity {
 		public void onInit(OnINIT_EVENT response) {
 			if(response == OnINIT_EVENT.CAMPAIGN_NOT_AVAILABLE || response == OnINIT_EVENT.CAMPAIGN_CACHED){
 				loadingView.setText("Loaded");
+				launch();
 			}
 		}
 		
