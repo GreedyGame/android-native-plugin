@@ -4,6 +4,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry exported="true" kind="lib" path="/GreedyAndroid/bin/greedyandroid.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/GreedyGameAgent_v6.6.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
