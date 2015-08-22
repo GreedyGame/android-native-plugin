@@ -38,9 +38,7 @@ public class AnimatedActivity extends Activity {
 		startButton.setOnClickListener(new View.OnClickListener() {
 		    public void onClick(View v) {
 				sun.startAnimation(sunRise);
-				if(SplashScreenActivity.ggAgent!=null){
-					SplashScreenActivity.ggAgent.removeHeadAd("unit-363");
-				}
+				
 		    }
 		});
 		
