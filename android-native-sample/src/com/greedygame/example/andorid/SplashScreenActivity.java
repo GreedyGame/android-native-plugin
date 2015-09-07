@@ -48,6 +48,7 @@ public class SplashScreenActivity extends Activity {
 
 		@Override
 		public void onInit(OnINIT_EVENT response) {
+			Log.i("GreedyGame Sample", "response = "+response);
 			if(response == OnINIT_EVENT.CAMPAIGN_NOT_AVAILABLE || response == OnINIT_EVENT.CAMPAIGN_CACHED){
 				loadingView.setText("Loaded");
 				launch();

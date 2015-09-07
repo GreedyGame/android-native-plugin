@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -24,6 +25,7 @@ public class AnimatedActivity extends Activity {
 		if(SplashScreenActivity.ggAgent!=null){
 			SplashScreenActivity.ggAgent.setCurrentActivity(this);
 			themePath = SplashScreenActivity.ggAgent.getActivePath();
+			Log.i("activepath", themePath);
 		}
 		
     	setContentView(R.layout.activity_animated);
