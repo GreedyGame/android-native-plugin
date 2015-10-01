@@ -1,7 +1,7 @@
 GreedyGame Android Native Integration Guide
 ===================
 
-This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v6.9.4jar](current-sdk/GreedyGameAgent_v6.9.4jar).
+This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v7.0.1.jar](current-sdk/GreedyGameAgent_v7.0.1jar).
 
 | Original       | Dynamic Theme      |
 | ------------- | ----------- |
