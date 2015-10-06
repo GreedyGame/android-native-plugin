@@ -21,7 +21,6 @@ public class SplashScreenActivity extends Activity {
 	private float downloadProgress = 0;
 	private Runnable updateProgress = null;
 	private ProgressBar progressBar;
-	 
 	
 	 
 	class GG_Listner implements com.greedygame.android.IAgentListner{
@@ -59,9 +58,11 @@ public class SplashScreenActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		  super.onCreate(savedInstanceState);
-		  setContentView(R.layout.splash_layout);
-		  progressBar = (ProgressBar) findViewById(R.id.progressbar2);
+		super.onCreate(savedInstanceState);
+		
+
+		setContentView(R.layout.splash_layout);
+		progressBar = (ProgressBar) findViewById(R.id.progressbar2);
 		  
 		 
 		loadingView = (TextView) findViewById(R.id.loadingView);
@@ -74,6 +75,7 @@ public class SplashScreenActivity extends Activity {
 				loadingView.setText("Loading... ["+(int)downloadProgress+"% ]");
 			}
 		};
+		
 		ggAgent = new GreedyGameAgent(this, new GG_Listner());
 		ggAgent.setCurrentActivity(this);
 		ggAgent.setDebug(true);
@@ -86,6 +88,7 @@ public class SplashScreenActivity extends Activity {
 	           	launch();
 	        }
 	    });
+
 	}
 	
 	

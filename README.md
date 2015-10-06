@@ -1,7 +1,7 @@
 GreedyGame Android Native Integration Guide
 ===================
 
-This is a complete guide to integrate GreedyGame plugin within your native android game. You can download [GreedyGameAgent_v7.0.1.jar](current-sdk/GreedyGameAgent_v7.0.1jar).
+This is a complete guide to integrate GreedyGame plugin within your native android game. You can download Android library project named, [greedy-game-agent_v7.1](greedy-game-agent_v7.1).
 
 | Original       | Dynamic Theme      |
 | ------------- | ----------- |
@@ -9,7 +9,7 @@ This is a complete guide to integrate GreedyGame plugin within your native andro
 
 #### Steps
 
-* Paste jar to your android project's libs folder or directly add to build path
+* Link android library project to build path
 
 ### Documentations
 #### GreedyGameAgent
@@ -51,9 +51,6 @@ Return Theme id of new theme from server
 
 ##### `public void fetchHeadAd(String unit_id)`
 Fetch floating AdHead with unit-id
-
-##### `public void fetchHeadAd(String unit_id, float x, float y)`
- Fetch floating AdHead with unit-id, at specific x, y with screen pixels
  
 ##### `public void removeHeadAd(String unit_id)`
 Hide floating AdHead with unit-id
@@ -86,10 +83,6 @@ Return sdk version
 	
 ##### `public void setDebug(boolean b)`
 Set sdk into debug mode
-	
-##### `public void useSecureConnection(boolean b)`
-To use api with HTTPS
-
 
 ---
 #### interface IAgentListner
@@ -164,11 +157,15 @@ class GG_Listner implements IAgentListner{
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-<uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 <application>
+	<activity
+		android:name="com.greedygame.android.AdHeadActivity"
+		android:theme="@style/Theme.Transparent" >
+	</activity>
+	
 	<service
 	    android:name="com.greedygame.android.GreedyBackgroundService"
 	    android:enabled="true" ></service>
@@ -223,7 +220,3 @@ private Bitmap getBitmapByResid(int resid){
 
 ---
 ### For Hello Tutorial, goto [andorid-native-sample](andorid-native-sample)  
-
-
-
-

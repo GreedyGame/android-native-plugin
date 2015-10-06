@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,6 +14,8 @@ import android.widget.ImageView;
 public class AnimatedActivity extends Activity {
 	
 	private Button startButton;
+	private Button f1,f2,f3;
+	private Button r1,r2,r3;
 	private Activity current;
 	private ImageView sun = null;
 	private String themePath = null;
@@ -22,15 +23,51 @@ public class AnimatedActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(SplashScreenActivity.ggAgent!=null){
-			SplashScreenActivity.ggAgent.setCurrentActivity(this);
-			themePath = SplashScreenActivity.ggAgent.getActivePath();
-			Log.i("activepath", themePath);
-		}
-		
-    	setContentView(R.layout.activity_animated);
 		current = this;
+    	setContentView(R.layout.activity_animated);
+    	
+    	SplashScreenActivity.ggAgent.setCurrentActivity(this);
+		
 		startButton = (Button) findViewById(R.id.start);
+		f1 = (Button) findViewById(R.id.fetch1);
+		f2 = (Button) findViewById(R.id.fetch2);
+		f3 = (Button) findViewById(R.id.fetch3);
+		r1 = (Button) findViewById(R.id.remove1);
+		r2 = (Button) findViewById(R.id.remove2);
+		r3 = (Button) findViewById(R.id.remove3);
+		
+		
+		f1.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+				SplashScreenActivity.ggAgent.fetchHeadAd("unit-363");
+		    }
+		});
+		f2.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+				SplashScreenActivity.ggAgent.fetchHeadAd("unit-1014");
+		    }
+		});
+		f3.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+				SplashScreenActivity.ggAgent.fetchHeadAd("unit-1015");
+		    }
+		});
+		r1.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+				SplashScreenActivity.ggAgent.removeHeadAd("unit-363");
+		    }
+		});
+		r2.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+				SplashScreenActivity.ggAgent.removeHeadAd("unit-1014");
+		    }
+		});
+		r3.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+				SplashScreenActivity.ggAgent.removeHeadAd("unit-1015");
+		    }
+		});
+		
 		setup();
 	}
 	
@@ -40,7 +77,6 @@ public class AnimatedActivity extends Activity {
 		startButton.setOnClickListener(new View.OnClickListener() {
 		    public void onClick(View v) {
 				sun.startAnimation(sunRise);
-				
 		    }
 		});
 		
@@ -53,21 +89,4 @@ public class AnimatedActivity extends Activity {
 		startButton.setText("Start");
 		startButton.setEnabled(true);
 	}
-
-	@Override
-	public void onResume(){
-		super.onResume();
-		if(themePath != null && SplashScreenActivity.ggAgent!=null){
-			SplashScreenActivity.ggAgent.fetchHeadAd("unit-363");
-		}
-	}
-	
-	@Override
-	public void onPause(){
-		super.onPause();
-		if(SplashScreenActivity.ggAgent!=null){
-			SplashScreenActivity.ggAgent.removeHeadAd("unit-363");
-		}
-	}
-	
 }

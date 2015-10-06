@@ -7,13 +7,6 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
 	<application
 		android:allowBackup="true"
@@ -28,44 +21,58 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		
-		<activity android:name="com.greedygame.example.andorid.AnimatedActivity" >
+    
+		<activity 
+		    android:name="com.greedygame.example.andorid.AnimatedActivity" >
 		</activity>
 		
+		<!-- GreedyGame SDK's requirements start -->
+		<activity
+		    android:name="com.greedygame.android.AdHeadActivity"
+			android:theme="@style/Theme.Transparent" >
+		</activity>
 		
 		<service
-		    android:name="com.greedygame.android.GreedyBackgroundService"
-		    android:enabled="true" ></service>
-		
-		<service
-		    android:name="com.greedygame.android.adhead.AdHeadService"></service>
-		
-	    <receiver 
-	        	android:name="com.greedygame.android.GreedyAppReceiver" 
-	        	android:enabled="true"
-	        	android:exported="true"
-	        	android:priority="100">
-	      <intent-filter>
-	        <action android:name="android.intent.action.PACKAGE_INSTALL" />
-	        <action android:name="android.intent.action.PACKAGE_ADDED" />
-	        <action android:name="android.intent.action.PACKAGE_REMOVED" />
-	        <action android:name="android.intent.action.PACKAGE_CHANGED" />
-	        <action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
-	        <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
-	        <action android:name="android.intent.action.PACKAGE_REPLACED" />
-	        <data android:scheme="package" />
-	      </intent-filter>
-	    </receiver>
+	    	android:name="com.greedygame.android.GreedyBackgroundService"
+	    	android:enabled="true" ></service>
+	
+    	<receiver 
+        	android:name="com.greedygame.android.GreedyAppReceiver" 
+        	android:enabled="true"
+        	android:exported="true"
+        	android:priority="100">
+			<intent-filter>
+	        	<action android:name="android.intent.action.PACKAGE_INSTALL" />
+	        	<action android:name="android.intent.action.PACKAGE_ADDED" />
+	        	<action android:name="android.intent.action.PACKAGE_REMOVED" />
+	        	<action android:name="android.intent.action.PACKAGE_CHANGED" />
+	        	<action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
+	        	<action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+	        	<action android:name="android.intent.action.PACKAGE_REPLACED" />
+	        	<data android:scheme="package" />
+	      	</intent-filter>
+	   	</receiver>
 	    
 	   	<receiver 
-	        	android:name="com.greedygame.android.GreedyRefReceiver" 
-	        	android:enabled="true" 
-	        	android:exported="true"
-	        	android:priority="100">
-	      <intent-filter>
-	        <action android:name="com.android.vending.INSTALL_REFERRER" />
-	      </intent-filter>
+	       	android:name="com.greedygame.android.GreedyRefReceiver" 
+	       	android:enabled="true" 
+	       	android:exported="true"
+	        android:priority="100">
+			<intent-filter>
+	     	   <action android:name="com.android.vending.INSTALL_REFERRER" />
+	      	</intent-filter>
 	    </receiver>
+		<!-- GreedyGame SDK's requirements end -->
+		
 	</application>
+	
+	<!-- GreedyGame SDK's requirements start -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<!-- GreedyGame SDK's requirements end -->
 
 </manifest>

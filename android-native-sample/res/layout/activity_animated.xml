@@ -35,7 +35,41 @@
 	    android:layout_alignParentBottom="true"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentRight="true"
-	    android:layout_marginBottom="40dp"
+	    android:layout_marginBottom="0dp"
 	    android:text="@string/start" />
+	
+	<GridLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:columnCount="2"
+	    android:orientation="horizontal"
+		android:layout_marginBottom="60dp" >
+	    <Button 
+	        android:text="Fetch 1" 
+	        android:id="@+id/fetch1"/>
+	 
+	    <Button 
+	        android:text="Remove 1" 
+	        android:id="@+id/remove1"/>
+	 
+	    <Button 
+	        android:text="Fetch 2" 
+	        android:id="@+id/fetch2"/>
+	 
+	    <Button 
+	        android:text="Remove 2" 
+	        android:id="@+id/remove2"/>
+	 
+	    <Button 
+	        android:text="Fetch 3" 
+	        android:id="@+id/fetch3"/>
+	 
+	    <Button 
+	        android:text="Remove 3" 
+	        android:id="@+id/remove3"/>
+	</GridLayout>
 
 </RelativeLayout>
