@@ -39,11 +39,6 @@ public class SplashScreenActivity extends Activity {
 		}
 
 
-		@Override
-		public void onUnitClicked(boolean isPause) {
-			// Handle pause and un-pause
-			Log.i("GreedyGame Sample", "isPause = "+isPause);
-		}
 
 		@Override
 		public void onInit(OnINIT_EVENT response) {
@@ -53,6 +48,8 @@ public class SplashScreenActivity extends Activity {
 				launch();
 			}
 		}
+
+
 		
 	}
 	@Override
@@ -77,7 +74,6 @@ public class SplashScreenActivity extends Activity {
 		};
 		
 		ggAgent = new GreedyGameAgent(this, new GG_Listner());
-		ggAgent.setCurrentActivity(this);
 		ggAgent.setDebug(true);
 		ggAgent.init("68712536", units, FETCH_TYPE.DOWNLOAD_BY_PATH);
 		Button b = (Button) findViewById(R.id.button1);

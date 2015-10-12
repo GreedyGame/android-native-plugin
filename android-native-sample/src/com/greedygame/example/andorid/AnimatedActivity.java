@@ -1,6 +1,8 @@
 package com.greedygame.example.andorid;
 
 
+import com.greedygame.android.FloatAdLayout;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +21,7 @@ public class AnimatedActivity extends Activity {
 	private Activity current;
 	private ImageView sun = null;
 	private String themePath = null;
+	private FloatAdLayout floatAdlayout = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,8 @@ public class AnimatedActivity extends Activity {
 		current = this;
     	setContentView(R.layout.activity_animated);
     	
-    	SplashScreenActivity.ggAgent.setCurrentActivity(this);
+    	themePath = SplashScreenActivity.ggAgent.getActivePath();
+    	floatAdlayout = new FloatAdLayout(this);
 		
 		startButton = (Button) findViewById(R.id.start);
 		f1 = (Button) findViewById(R.id.fetch1);
@@ -36,37 +40,39 @@ public class AnimatedActivity extends Activity {
 		r2 = (Button) findViewById(R.id.remove2);
 		r3 = (Button) findViewById(R.id.remove3);
 		
-		
-		f1.setOnClickListener(new View.OnClickListener() {
-		    public void onClick(View v) {
-				SplashScreenActivity.ggAgent.fetchHeadAd("unit-363");
-		    }
-		});
-		f2.setOnClickListener(new View.OnClickListener() {
-		    public void onClick(View v) {
-				SplashScreenActivity.ggAgent.fetchHeadAd("unit-1014");
-		    }
-		});
-		f3.setOnClickListener(new View.OnClickListener() {
-		    public void onClick(View v) {
-				SplashScreenActivity.ggAgent.fetchHeadAd("unit-1015");
-		    }
-		});
-		r1.setOnClickListener(new View.OnClickListener() {
-		    public void onClick(View v) {
-				SplashScreenActivity.ggAgent.removeHeadAd("unit-363");
-		    }
-		});
-		r2.setOnClickListener(new View.OnClickListener() {
-		    public void onClick(View v) {
-				SplashScreenActivity.ggAgent.removeHeadAd("unit-1014");
-		    }
-		});
-		r3.setOnClickListener(new View.OnClickListener() {
-		    public void onClick(View v) {
-				SplashScreenActivity.ggAgent.removeHeadAd("unit-1015");
-		    }
-		});
+		if(themePath != null){
+			f1.setOnClickListener(new View.OnClickListener() {
+			    public void onClick(View v) {
+			    	floatAdlayout.fetchHeadAd("unit-363");
+			    }
+			});
+			f2.setOnClickListener(new View.OnClickListener() {
+			    public void onClick(View v) {
+			    	floatAdlayout.fetchHeadAd("unit-1014");
+			    }
+			});
+			f3.setOnClickListener(new View.OnClickListener() {
+			    public void onClick(View v) {
+			    	floatAdlayout.fetchHeadAd("unit-1015");
+			    }
+			});
+			
+			r1.setOnClickListener(new View.OnClickListener() {
+			    public void onClick(View v) {
+			    	floatAdlayout.removeHeadAd("unit-363");
+			    }
+			});
+			r2.setOnClickListener(new View.OnClickListener() {
+			    public void onClick(View v) {
+			    	floatAdlayout.removeHeadAd("unit-1014");
+			    }
+			});
+			r3.setOnClickListener(new View.OnClickListener() {
+			    public void onClick(View v) {
+			    	floatAdlayout.removeHeadAd("unit-1015");
+			    }
+			});
+		}
 		
 		setup();
 	}
