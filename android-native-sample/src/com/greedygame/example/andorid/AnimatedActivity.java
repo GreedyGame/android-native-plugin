@@ -1,6 +1,7 @@
 package com.greedygame.example.andorid;
 
 
+import com.greedygame.android.AgentInitNotCalledException;
 import com.greedygame.android.FloatAdLayout;
 
 import android.app.Activity;
@@ -43,17 +44,29 @@ public class AnimatedActivity extends Activity {
 		if(themePath != null){
 			f1.setOnClickListener(new View.OnClickListener() {
 			    public void onClick(View v) {
-			    	floatAdlayout.fetchHeadAd("unit-363");
+			    	try {
+						floatAdlayout.fetchHeadAd("unit-363");
+					} catch (AgentInitNotCalledException e) {
+						e.printStackTrace();
+					}
 			    }
 			});
 			f2.setOnClickListener(new View.OnClickListener() {
 			    public void onClick(View v) {
-			    	floatAdlayout.fetchHeadAd("unit-1014");
+			    	try {
+						floatAdlayout.fetchHeadAd("unit-1014");
+					} catch (AgentInitNotCalledException e) {
+						e.printStackTrace();
+					}
 			    }
 			});
 			f3.setOnClickListener(new View.OnClickListener() {
 			    public void onClick(View v) {
-			    	floatAdlayout.fetchHeadAd("unit-1015");
+			    	try {
+						floatAdlayout.fetchHeadAd("unit-1015");
+					} catch (AgentInitNotCalledException e) {
+						e.printStackTrace();
+					}
 			    }
 			});
 			
