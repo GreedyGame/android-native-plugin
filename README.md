@@ -39,18 +39,42 @@ Return Theme id of currently active and running theme
 
 ##### `public String newTheme()`
 Return Theme id of new theme from server
-	
+    
 ##### `public void cancelDownload()`
  Cancel current campaign download
-		
+        
 ##### `public String getActivePath()`
  Return path of folder, where assets of activeTheme is stored.
 
 ----
-**Floating Ad Method**
 
-##### `public void fetchHeadAd(String unit_id)`
-Fetch floating AdHead with unit-id
+#### FloatAdLayout - For Floating ads
+**Class Overview**
+
+Extended FrameLayout used to display FloatAd creatives
+
+**Public Constructors**
+##### `FloatAdLayout(Context context)`
+
+Constructs a new instance of FloatAdLayout.
+
+----------
+
+**Method**
+
+##### `public void fetchHeadAd(String unit_id) throws AgentInitNotCalledException`
+Fetch floating AdHead unit and add view to current context. 
+
+* unit_id - Float unit id from panel.greedygame.com (e.g 'f-123')
+* AgentInitNotCalledException - throws exception if called before calling GreedyGameAgent's init callback.
+    
+
+##### `public void fetchHeadAd(String unit_id, int diX, int diY) throws AgentInitNotCalledException`
+Fetch floating AdHead unit and add view to current context. 
+
+* unit_id - Float unit id from panel.greedygame.com (e.g 'f-123')
+* diX, diY - Adjust dip cordinates in screen. 0,0 stands for top left.
+* AgentInitNotCalledException - throws exception if called before calling GreedyGameAgent's init callback.
  
 ##### `public void removeHeadAd(String unit_id)`
 Hide floating AdHead with unit-id
@@ -80,7 +104,7 @@ protected void onResume(){
 
 ##### `public String get_verison()`
 Return sdk version
-	
+    
 ##### `public void setDebug(boolean b)`
 Set sdk into debug mode
 
@@ -92,11 +116,11 @@ Is is used as callback listener argument for GreedyAgent class
 **Methods**
  
 ##### `void onInit(OnINIT_EVENT response)`
- 	response value indicate
-	 * BUSY = loader busy right now
-	 * CAMPAIGN_NOT_AVAILABLE = using no campaign
-	 * CAMPAIGN_CACHED = campaign already cached
-	 * CAMPAIGN_FOUND = new campaign found to download
+     response value indicate
+     * BUSY = loader busy right now
+     * CAMPAIGN_NOT_AVAILABLE = using no campaign
+     * CAMPAIGN_CACHED = campaign already cached
+     * CAMPAIGN_FOUND = new campaign found to download
 
 ##### `void onDownload(boolean success)`
 success true , If new branded contents are downloaded so that new scene can fetch assets from **getActivePath()**.
@@ -110,42 +134,28 @@ For example
 
 ```java
 class GG_Listner implements IAgentListner{
-	@Override
-	public void onProgress(float progress) {
-		//Use this for showing progress bar
+    @Override
+    public void onProgress(float progress) {
+        //Use this for showing progress bar
         Log.i("GreedyGame Sample", "Downloaded = "+progress+"%");
-	}
+    }
     
     @Override
-	public void onDownload(boolean success) {
-		if(success){
-			isBranded = true;
-		}
-	}
+    public void onDownload(boolean success) {
+        if(success){
+            isBranded = true;
+        }
+    }
 
     @Override
     public void onInit(OnINIT_EVENT response) {
-    	if(	response == OnINIT_EVENT.CAMPAIGN_CACHED || 
-    		response == OnINIT_EVENT.CAMPAIGN_FOUND){
-    		isBranded = true;
-    	}else{
-    		isBranded = false;
-    	}
-
-    	if(isBranded){
-    		ggAgent.fetchHeadAd("unit-363");
-    	}
+        if(    response == OnINIT_EVENT.CAMPAIGN_CACHED || 
+            response == OnINIT_EVENT.CAMPAIGN_FOUND){
+            isBranded = true;
+        }else{
+            isBranded = false;
+        }
     }
-
-
-	@Override
-	public void onUnitClicked(boolean clicked) {
-		if(clicked) {
-			//pause game
-		}else {
-			//resume/unpause game
-		}
-	}
 }
 ```
 
@@ -161,39 +171,39 @@ class GG_Listner implements IAgentListner{
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 <application>
-	<activity
-		android:name="com.greedygame.android.AdHeadActivity"
-		android:theme="@style/Theme.Transparent" >
-	</activity>
-	
-	<service
-	    android:name="com.greedygame.android.GreedyBackgroundService"
-	    android:enabled="true" ></service>
+    <activity
+        android:name="com.greedygame.android.AdHeadActivity"
+        android:theme="@style/Theme.Transparent" >
+    </activity>
+    
+    <service
+        android:name="com.greedygame.android.GreedyBackgroundService"
+        android:enabled="true" ></service>
 
-	<receiver 
-	    android:name="com.greedygame.android.GreedyAppReceiver" 
-	    android:enabled="true" 
-	    android:priority="100">
-    	<intent-filter>
-	    	<action android:name="android.intent.action.PACKAGE_INSTALL" />
-	    	<action android:name="android.intent.action.PACKAGE_ADDED" />
-	    	<action android:name="android.intent.action.PACKAGE_REMOVED" />
-	    	<action android:name="android.intent.action.PACKAGE_CHANGED" />
-	    	<action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
-	    	<action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
-	    	<action android:name="android.intent.action.PACKAGE_REPLACED" />
-	    	<data android:scheme="package" />
-	  	</intent-filter>
+    <receiver 
+        android:name="com.greedygame.android.GreedyAppReceiver" 
+        android:enabled="true" 
+        android:priority="100">
+        <intent-filter>
+            <action android:name="android.intent.action.PACKAGE_INSTALL" />
+            <action android:name="android.intent.action.PACKAGE_ADDED" />
+            <action android:name="android.intent.action.PACKAGE_REMOVED" />
+            <action android:name="android.intent.action.PACKAGE_CHANGED" />
+            <action android:name="android.intent.action.PACKAGE_FIRST_LAUNCH" />
+            <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+            <action android:name="android.intent.action.PACKAGE_REPLACED" />
+            <data android:scheme="package" />
+          </intent-filter>
     </receiver>
 
-	<receiver 
-	    android:name="com.greedygame.android.GreedyRefReceiver" 
-	    android:enabled="true" 
-	    android:priority="100">
-	  	<intent-filter>
-	    	<action android:name="com.android.vending.INSTALL_REFERRER" />
-	  	</intent-filter>
-	</receiver>
+    <receiver 
+        android:name="com.greedygame.android.GreedyRefReceiver" 
+        android:enabled="true" 
+        android:priority="100">
+          <intent-filter>
+            <action android:name="com.android.vending.INSTALL_REFERRER" />
+          </intent-filter>
+    </receiver>
 </application>
 ```
 ---
@@ -201,22 +211,21 @@ class GG_Listner implements IAgentListner{
 To fetch drawable from android res
 
 ```java
-private Bitmap getBitmapByResid(int resid){	
-	String resName = this.getApplicationContext().getResources().getResourceEntryName(resid);
-	String[]  exts = {"png", "jpg", "gif"};
-	File file = null;
-	for(int i = 0; i<exts.length; i++){
-		file = new File(ggAgent.getActivePath() + "/" + resName+"."+exts[i]);
-		if(file.exists()){
-			break;
-		}
-	}
-	if(file == null){
-		return null;
-	}
-	return BitmapFactory.decodeFile(file.getAbsolutePath());
+public static Bitmap getBitmapByResid(GreedyGameAgent ggAgent, int resid){ 
+    if(GreedyGameAgent.gameActivity == null){
+        return null;
+    }
+
+    String resName = GreedyGameAgent.gameActivity.getApplicationContext().getResources().getResourceEntryName(resid);
+    File file = new File(ggAgent.getActivePath() + "/" + resName+".png");
+    if(file.exists()){
+        return BitmapFactory.decodeFile(file.getAbsolutePath());
+    }
+
+    return null;
 }
 ```
 
 ---
 ### For Hello Tutorial, goto [andorid-native-sample](andorid-native-sample)  
+
