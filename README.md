@@ -78,6 +78,15 @@ Fetch floating AdHead unit and add view to current context.
  
 ##### `public void removeHeadAd(String unit_id)`
 Hide floating AdHead with unit-id
+```java
+/*** Fetching Float Ad unit ***/
+floatAdlayout = new FloatAdLayout(context);
+try {
+	floatAdlayout.fetchHeadAd("f-363");
+} catch (AgentInitNotCalledException e) {
+	e.printStackTrace();
+}
+```
 
 ----
 **Analytics Methods**
@@ -125,8 +134,6 @@ Is is used as callback listener argument for GreedyAgent class
 ##### `void onDownload(boolean success)`
 success true , If new branded contents are downloaded so that new scene can fetch assets from **getActivePath()**.
 
-##### `void onUnitClicked(boolean clicked)`
- clicked true, if floating adhead unit is clicked so that game developer can manage game pause.
 
 For example
 

@@ -13,11 +13,10 @@ import com.greedygame.android.FloatAdLayout;
 import com.greedygame.android.GreedyUtilities;
 
 public class AnimatedActivity extends Activity {
-	
+   
+    private String themePath = null;
+    private FloatAdLayout floatAdlayout = null;
 
-	
-	private String themePath = null;
-	private FloatAdLayout floatAdlayout = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,5 +66,6 @@ public class AnimatedActivity extends Activity {
 		super.onPause();
 		SplashScreenActivity.ggAgent.onPause();
 	}
+
 
 }
