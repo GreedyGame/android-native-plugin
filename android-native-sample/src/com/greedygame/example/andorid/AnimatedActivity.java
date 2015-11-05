@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.greedygame.android.AgentInitNotCalledException;
@@ -27,10 +28,13 @@ public class AnimatedActivity extends Activity {
     	
     	/*** Fetching Float Ad unit ***/
     	floatAdlayout = new FloatAdLayout(this);
+
+		addContentView(floatAdlayout, new FrameLayout.LayoutParams(140, 140));
+	
     	Log.i("GreedyGame Sample", "activePath "+themePath);
 		
     	try {
-			floatAdlayout.fetchHeadAd("unit-363");
+			floatAdlayout.fetchHeadAd("unit-363", true);
 		} catch (AgentInitNotCalledException e) {
 			e.printStackTrace();
 		}
@@ -54,7 +58,7 @@ public class AnimatedActivity extends Activity {
 	@Override
 	public void onDestroy(){
 		super.onDestroy();
-		floatAdlayout.removeHeadAd("unit-363");
+		floatAdlayout.removeAllHeadAd();
 	}
 	
 	
