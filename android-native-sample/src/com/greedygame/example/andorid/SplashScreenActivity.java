@@ -98,13 +98,6 @@ public class SplashScreenActivity extends Activity {
 	}
 	
 	
-	private void launch(){
-		Log.i("Demo", "launch");
-		
-		Intent intent = new Intent(this, NativeActivity.class);
-		startActivity(intent);
-	}
-	
 	@Override
 	public void onDestroy(){
 		super.onDestroy();
