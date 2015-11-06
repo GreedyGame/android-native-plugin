@@ -27,16 +27,15 @@ public class AnimatedActivity extends Activity {
     	
     	/*** Fetching Float Ad unit ***/
     	floatAdlayout = new FloatAdLayout(this);
-
-		addContentView(floatAdlayout, new FrameLayout.LayoutParams(140, 140));
+	addContentView(floatAdlayout, new FrameLayout.LayoutParams(140, 140));
 	
     	Log.i("GreedyGame Sample", "activePath "+themePath);
 		
     	try {
-			floatAdlayout.fetchHeadAd("unit-363", true);
-		} catch (AgentInitNotCalledException e) {
-			e.printStackTrace();
-		}
+		floatAdlayout.fetchHeadAd("unit-363", true);
+	} catch (AgentInitNotCalledException e) {
+		e.printStackTrace();
+	}
     	
     	
     	/*** Changing Native Ad units ***/
