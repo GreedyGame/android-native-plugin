@@ -35,7 +35,6 @@ public class SplashScreenActivity extends Activity {
 		@Override
 		public void onDownload(boolean success) {
 			loadingView.setText("Loaded");
-			launch();
 		}
 
 
@@ -45,7 +44,6 @@ public class SplashScreenActivity extends Activity {
 			Log.i("GreedyGame Sample", "response = "+response);
 			if(response == OnINIT_EVENT.CAMPAIGN_NOT_AVAILABLE || response == OnINIT_EVENT.CAMPAIGN_CACHED){
 				loadingView.setText("Loaded");
-				launch();
 			}
 		}
 
@@ -76,22 +74,34 @@ public class SplashScreenActivity extends Activity {
 		ggAgent = new GreedyGameAgent(this, new GG_Listner());
 		ggAgent.setDebug(true);
 		ggAgent.init("68712536", units, FETCH_TYPE.DOWNLOAD_BY_PATH);
-		Button b = (Button) findViewById(R.id.button1);
-		b.setOnClickListener(new View.OnClickListener() 
+		
+		final Activity thisActivity = this;
+		Button b1 = (Button) findViewById(R.id.button1);
+		b1.setOnClickListener(new View.OnClickListener() 
 		{
 			public void onClick(View v) 
 			{
-	           	launch();
+				Intent intent = new Intent(thisActivity, AnimatedActivity.class);
+				startActivity(intent);
 	        }
 	    });
 
+		Button b2 = (Button) findViewById(R.id.button2);
+		b2.setOnClickListener(new View.OnClickListener() 
+		{
+			public void onClick(View v) 
+			{
+				Intent intent = new Intent(thisActivity, NativeActivity.class);
+				startActivity(intent);
+	        }
+	    });
 	}
 	
 	
 	private void launch(){
 		Log.i("Demo", "launch");
 		
-		Intent intent = new Intent(this, AnimatedActivity.class);
+		Intent intent = new Intent(this, NativeActivity.class);
 		startActivity(intent);
 	}
 	
