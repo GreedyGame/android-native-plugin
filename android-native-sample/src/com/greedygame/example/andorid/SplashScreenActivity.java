@@ -73,7 +73,7 @@ public class SplashScreenActivity extends Activity {
 		
 		ggAgent = new GreedyGameAgent(this, new GG_Listner());
 		ggAgent.setDebug(true);
-		ggAgent.init("68712536", units, FETCH_TYPE.DOWNLOAD_BY_PATH);
+		ggAgent.init(units, FETCH_TYPE.DOWNLOAD_BY_PATH);
 		
 		final Activity thisActivity = this;
 		Button b1 = (Button) findViewById(R.id.button1);
@@ -97,10 +97,5 @@ public class SplashScreenActivity extends Activity {
 	    });
 	}
 	
-	
-	@Override
-	public void onDestroy(){
-		super.onDestroy();
-		ggAgent.onDestroy();
-	}
+
 }
