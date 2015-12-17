@@ -16,10 +16,11 @@ import com.greedygame.android.GreedyGameAgent.OnINIT_EVENT;
 public class SplashScreenActivity extends Activity {
 
 	protected static GreedyGameAgent ggAgent;
-	private final String[] units = {"sun.png"};
+	private final String[] units = {"sun.png","sun4.png","sun3.png"};
 	private TextView loadingView = null;
 	private float downloadProgress = 0;
 	private Runnable updateProgress = null;
+	private Runnable updateText = null;
 	private ProgressBar progressBar;
 	
 	 
@@ -34,7 +35,7 @@ public class SplashScreenActivity extends Activity {
 
 		@Override
 		public void onDownload(boolean success) {
-			loadingView.setText("Loaded");
+			runOnUiThread(updateText);
 		}
 
 
@@ -43,7 +44,7 @@ public class SplashScreenActivity extends Activity {
 		public void onInit(OnINIT_EVENT response) {
 			Log.i("GreedyGame Sample", "response = "+response);
 			if(response == OnINIT_EVENT.CAMPAIGN_NOT_AVAILABLE || response == OnINIT_EVENT.CAMPAIGN_CACHED){
-				loadingView.setText("Loaded");
+				runOnUiThread(updateText);
 			}
 		}
 
@@ -68,6 +69,16 @@ public class SplashScreenActivity extends Activity {
 			{
 				progressBar.setProgress((int)downloadProgress);
 				loadingView.setText("Loading... ["+(int)downloadProgress+"% ]");
+			}
+		};
+		
+		updateText = new Runnable() 
+		{
+			@Override
+			public void run() 
+			{
+				
+				loadingView.setText("Finished Loading");
 			}
 		};
 		

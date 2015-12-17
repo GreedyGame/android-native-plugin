@@ -6,6 +6,6 @@
 	<string name="sky">Sky</string>
 	<string name="start">Start</string>
 	<string name="gg_splash">Greedy Splash</string>
-	<string name="greedy_game_profile">11111111</string>
-
+	<string name="greedy_game_profile">14435775</string>
+	<integer name="google_play_services_version">7895000</integer>
 </resources>

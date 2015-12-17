@@ -32,7 +32,7 @@ public class AnimatedActivity extends Activity {
     	Log.i("GreedyGame Sample", "activePath "+themePath);
 		
     	try {
-    		floatAdlayout.fetchHeadAd("unit-363", true);
+    		floatAdlayout.fetchHeadAd("unit-713", true);
 		} catch (AgentInitNotCalledException e) {
 			e.printStackTrace();
 		}

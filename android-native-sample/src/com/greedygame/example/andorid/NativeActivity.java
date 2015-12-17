@@ -23,7 +23,7 @@ public class NativeActivity extends Activity {
     											FrameLayout.LayoutParams.WRAP_CONTENT, 
     											FrameLayout.LayoutParams.WRAP_CONTENT));
     	try {
-			floatAdlayout.fetchHeadAd("unit-363");
+			floatAdlayout.fetchHeadAd("unit-701");
 		} catch (AgentInitNotCalledException e) {
 			e.printStackTrace();
 		}
