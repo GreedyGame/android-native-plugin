@@ -180,6 +180,7 @@ class GG_Listner implements IAgentListner{
     android:priority="100">
     <intent-filter>
         <action android:name="com.android.vending.INSTALL_REFERRER" />
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
     </intent-filter>
 </receiver>
 <!-- GreedyGame SDK's requirements end -->
