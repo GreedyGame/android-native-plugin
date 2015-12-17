@@ -16,7 +16,7 @@ import com.greedygame.android.GreedyGameAgent.OnINIT_EVENT;
 public class SplashScreenActivity extends Activity {
 
 	protected static GreedyGameAgent ggAgent;
-	private final String[] units = {"sun.png","sun4.png","sun3.png"};
+	private final String[] units = {"sun.png"};
 	private TextView loadingView = null;
 	private float downloadProgress = 0;
 	private Runnable updateProgress = null;
