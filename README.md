@@ -207,4 +207,5 @@ public static Bitmap getBitmapByResid(GreedyGameAgent ggAgent, int resid){
 
 ---
 ### For Hello Tutorial, goto [andorid-native-sample](andorid-native-sample)  
+### For more help please see [FAQ] (https://github.com/GreedyGame/unity-plugin/wiki/FAQs)
 
