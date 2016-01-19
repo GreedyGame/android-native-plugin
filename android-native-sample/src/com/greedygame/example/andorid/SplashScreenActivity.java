@@ -1,5 +1,7 @@
 package com.greedygame.example.andorid;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,6 +48,13 @@ public class SplashScreenActivity extends Activity {
 			if(response == OnINIT_EVENT.CAMPAIGN_NOT_AVAILABLE || response == OnINIT_EVENT.CAMPAIGN_CACHED){
 				runOnUiThread(updateText);
 			}
+		}
+
+		@Override
+		public void unAvailablePermissions(ArrayList<String> permissions) {
+			// TODO Auto-generated method stub
+
+			
 		}
 
 
