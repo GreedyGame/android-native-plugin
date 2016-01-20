@@ -31,7 +31,7 @@ public class AnimatedActivity extends Activity {
     	Log.i("GreedyGame Sample", "activePath "+themePath);
 		
     	try {
-    		floatAdlayout.fetchHeadAd("unit-363", true);
+    		floatAdlayout.fetchHeadAd("unit-701", true);
     		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			((Activity) this).addContentView(floatAdlayout, params);
