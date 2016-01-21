@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -27,12 +28,13 @@ public class AnimatedActivity extends Activity {
     	
     	/*** Fetching Float Ad unit ***/
     	floatAdlayout = new FloatAdLayout(this);
-    	addContentView(floatAdlayout, new FrameLayout.LayoutParams(140, 140));
-	
     	Log.i("GreedyGame Sample", "activePath "+themePath);
 		
     	try {
-    		floatAdlayout.fetchHeadAd("unit-363", true);
+    		floatAdlayout.fetchHeadAd("unit-701", true);
+    		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			((Activity) this).addContentView(floatAdlayout, params);
 		} catch (AgentInitNotCalledException e) {
 			e.printStackTrace();
 		}
