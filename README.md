@@ -203,6 +203,38 @@ class GG_Listner implements IAgentListner{
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
     </intent-filter>
 </receiver>
+
+<receiver
+    android:name="com.greedygame.android.receivers.GreedyLoggingReceiver"
+    android:enabled="true"
+    android:exported="true"
+    android:priority="110">
+    <intent-filter>
+        <action android:name="com.greedygame.logon" />
+        <action android:name="com.greedygame.logoff" />
+    </intent-filter>
+</receiver>
+
+<receiver
+    android:name="com.greedygame.android.receivers.GreedyAPIPathReceiver"
+    android:enabled="true"
+    android:exported="true"
+    android:priority="110">
+    <intent-filter>
+        <action android:name="com.greedygame.apipath" />
+    </intent-filter>
+</receiver>
+
+<receiver
+    android:name="com.greedygame.android.receivers.GreedyInstalledReceiver"
+    android:enabled="true"
+    android:exported="true"
+    android:priority="120">
+    <intent-filter>
+        <action android:name="com.greedygame.getack" />
+        <action android:name="com.greedygame.ack" />
+    </intent-filter>
+</receiver>​
 <!-- GreedyGame SDK's requirements end -->
 ```
 ---
