@@ -258,6 +258,10 @@ public static Bitmap getBitmapByResid(GreedyGameAgent ggAgent, int resid){
 ```
 
 ---
+
+### External Jars
+GreedyGame SDK uses Volley from Google and PriorityJobQueue from path as external jars. In case of conflicts you can remove it from libs folder of the wrapper. 
+
 ### For Hello Tutorial, goto [andorid-native-sample](andorid-native-sample)  
 ### For more help please see [FAQ] (https://github.com/GreedyGame/unity-plugin/wiki/FAQs)
 
