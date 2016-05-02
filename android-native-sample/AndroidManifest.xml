@@ -35,12 +35,12 @@
 		
 		<!-- GreedyGame SDK's requirements start -->
 		<activity
-		    android:name="com.greedygame.android.AdHeadActivity"
+		    android:name="com.greedygame.android.adhead.GGAdHeadActivity"
 			android:theme="@style/Theme.Transparent" >
 		</activity>
 		
 	   	<receiver 
-	        	android:name="com.greedygame.android.GreedyRefReceiver" 
+	        	android:name="com.greedygame.android.receivers.GreedyRefReceiver" 
 	        	android:enabled="true" 
 	        	android:exported="true"
 	        	android:priority="100">

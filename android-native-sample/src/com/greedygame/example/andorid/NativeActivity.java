@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
-import com.greedygame.android.FloatAdLayout;
+import com.greedygame.android.adhead.FloatAdLayout;
 import com.greedygame.android.exceptions.AgentInitNotCalledException;
 
 public class NativeActivity extends Activity {
@@ -23,7 +23,7 @@ public class NativeActivity extends Activity {
     											FrameLayout.LayoutParams.WRAP_CONTENT, 
     											FrameLayout.LayoutParams.WRAP_CONTENT));
     	try {
-			floatAdlayout.fetchHeadAd("unit-701");
+			floatAdlayout.fetchHeadAd("float-701");
 		} catch (AgentInitNotCalledException e) {
 			e.printStackTrace();
 		}

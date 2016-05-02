@@ -11,14 +11,16 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.greedygame.android.GreedyGameAgent;
-import com.greedygame.android.GreedyGameAgent.FETCH_TYPE;
-import com.greedygame.android.GreedyGameAgent.OnINIT_EVENT;
+import com.greedygame.android.agent.GreedyGameAgent;
+import com.greedygame.android.agent.GreedyGameAgent.FetchType;
+import com.greedygame.android.agent.GreedyGameAgent.OnInitEvent;
+import com.greedygame.android.agent.IAgentListener;
+
 
 public class SplashScreenActivity extends Activity {
 
 	protected static GreedyGameAgent ggAgent;
-	private final String[] units = {"sun.png"};
+	private final String[] units = {"sun.png","unit-12345","float-701","float-713","float-10000"};
 	private TextView loadingView = null;
 	private float downloadProgress = 0;
 	private Runnable updateProgress = null;
@@ -26,7 +28,7 @@ public class SplashScreenActivity extends Activity {
 	private ProgressBar progressBar;
 	
 	 
-	class GG_Listner implements com.greedygame.android.IAgentListner{
+	class GG_Listener implements IAgentListener{
 
 		@Override
 		public void onProgress(float progress) {
@@ -36,30 +38,38 @@ public class SplashScreenActivity extends Activity {
 		}
 
 		@Override
-		public void onDownload(boolean success) {
+		public void onDownload() {
 			runOnUiThread(updateText);
 		}
 
 
 
 		@Override
-		public void onInit(OnINIT_EVENT response) {
+		public void onInit(OnInitEvent response) {
 			Log.i("GreedyGame Sample", "response = "+response);
-			if(response == OnINIT_EVENT.CAMPAIGN_NOT_AVAILABLE || response == OnINIT_EVENT.CAMPAIGN_CACHED){
+			if(response == OnInitEvent.CAMPAIGN_NOT_AVAILABLE || response == OnInitEvent.CAMPAIGN_AVAILABLE
+				){
 				runOnUiThread(updateText);
 			}
 		}
 
-		@Override
-		public void unAvailablePermissions(ArrayList<String> permissions) {
-			// TODO Auto-generated method stub
+		
 
+		@Override
+		public void onError() {
+			// TODO Auto-generated method stub
 			
 		}
 
 
-		
-	}
+		@Override
+		public void onPermissionsUnavailable(ArrayList<String> arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+}
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -91,9 +101,9 @@ public class SplashScreenActivity extends Activity {
 			}
 		};
 		
-		ggAgent = new GreedyGameAgent(this, new GG_Listner());
-		ggAgent.setDebug(true);
-		ggAgent.init(units, FETCH_TYPE.DOWNLOAD_BY_PATH);
+		ggAgent = GreedyGameAgent.install(this, new GG_Listener());
+		ggAgent.setDebug(false);
+		ggAgent.init(units, FetchType.DOWNLOAD_BY_PATH);
 		
 		final Activity thisActivity = this;
 		Button b1 = (Button) findViewById(R.id.button1);

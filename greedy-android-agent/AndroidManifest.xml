@@ -17,24 +17,21 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 	<activity
-	    android:name="com.greedygame.android.AdHeadActivity"
+	    android:name="com.greedygame.android.adhead.GGAdHeadActivity"
+	    android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|layoutDirection" 
+	    android:launchMode="singleTask"
 		android:theme="@style/Theme.Transparent" >
 	</activity>
-            
-	<service
-	    android:name="com.greedygame.android.GreedyBackgroundService"
-	    android:enabled="true" ></service>
-	
-    
-    
+                
    	<receiver 
-        	android:name="com.greedygame.android.GreedyRefReceiver" 
+        	android:name="com.greedygame.android.receivers.GreedyRefReceiver" 
         	android:enabled="true" 
         	android:exported="true"
-        	android:priority="100">
+        >
       <intent-filter>
         <action android:name="com.android.vending.INSTALL_REFERRER" />
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+        <action android:name="com.greedygame.broadcast"/>
       </intent-filter>
     </receiver>
 </manifest>
