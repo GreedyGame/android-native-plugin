@@ -26,18 +26,19 @@ You can download Android library project named, [greedy-game-agent](https://gith
 
 Install the GreedygameAgent in the activity
 
-##### `public GreedyGameAgent install(Activity activity, IAgentListener agentListener);`
+##### `public static GreedyGameAgent install(Activity activity, IAgentListener agentListener);`
+
+##### `GreedyGameAgent ggAgent = GreedyGameAgent.install(this,listener);`
 
 ---------
 
 **Methods**
 
-##### `public void init(String []Units, FETCH_TYPE)`
+##### `public void init(String[] units, FetchType fetchType)`
 Lookup for an active campaign from the server. 
 
-* **GameId** - Unique game profile id from panel.greedygame.com
 * **Units** - List of relative path of assets used in games. 
-    Also, register unit id can be used
+    Also, register unit id can be used. Add both float units and native units to the list. 
 * **FetchType** - enum in values:
 	* FetchType.DOWNLOAD_BY_PATH  to fetch with relative path
 	* FetchType.DOWNLOAD_BY_ID to fetch with unit_id
@@ -107,7 +108,7 @@ response value to indicate
     CAMPAIGN_AVAILABLE = Campaign is active 
 
 ##### `void onDownload()`
-Called when new branded contents are downloaded so that new scene can fetch assets from getActivePath().
+Called when new branded contents are downloaded so that new scene can fetch assets from getActivePath(). Called after onInit callback.
 
 #### `void onPermissionsUnavailable(ArrayList permissions)`
 
@@ -157,6 +158,10 @@ class GGListner implements IAgentListener{
     @override
     public void onPermissionsUnavailable(ArrayList<String> permissions) {
 
+    }
+
+    @override
+    public void onError() {
 
     }
 }
@@ -170,7 +175,7 @@ class GGListner implements IAgentListener{
    <!-- GreedyGame SDK's requirements start -->
    
     <activity
-        android:name="com.greedygame.android.adhead.AdHeadActivity"
+        android:name="com.greedygame.android.adhead.GGAdHeadActivity"
         android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|layoutDirection"
         android:launchMode="singleTask"
         android:theme="@style/Theme.Transparent">
