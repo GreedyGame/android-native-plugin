@@ -27,11 +27,6 @@
 		    android:name="com.greedygame.example.andorid.AnimatedActivity">
 		</activity>
 
-				<activity 
-		    android:name="com.greedygame.example.andorid.NativeActivity" 
-		    
-            >
-		</activity>
 		
 		<!-- GreedyGame SDK's requirements start -->
 		<activity

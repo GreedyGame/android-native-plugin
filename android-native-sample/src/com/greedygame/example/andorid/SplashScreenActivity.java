@@ -116,15 +116,7 @@ public class SplashScreenActivity extends Activity {
 	        }
 	    });
 
-		Button b2 = (Button) findViewById(R.id.button2);
-		b2.setOnClickListener(new View.OnClickListener() 
-		{
-			public void onClick(View v) 
-			{
-				Intent intent = new Intent(thisActivity, NativeActivity.class);
-				startActivity(intent);
-	        }
-	    });
+		
 	}
 	
 
