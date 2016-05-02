@@ -8,9 +8,8 @@ import android.util.Log;
 import android.view.WindowManager.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
-import com.greedygame.android.FloatAdLayout;
 import com.greedygame.android.GreedyUtilities;
+import com.greedygame.android.adhead.FloatAdLayout;
 import com.greedygame.android.exceptions.AgentInitNotCalledException;
 
 public class AnimatedActivity extends Activity {
@@ -31,7 +30,7 @@ public class AnimatedActivity extends Activity {
     	Log.i("GreedyGame Sample", "activePath "+themePath);
 		
     	try {
-    		floatAdlayout.fetchHeadAd("unit-701", true);
+    		floatAdlayout.fetchHeadAd("float-701", true);
     		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			((Activity) this).addContentView(floatAdlayout, params);
@@ -51,20 +50,19 @@ public class AnimatedActivity extends Activity {
 	@Override
 	public void onResume(){
 		super.onResume();
-		SplashScreenActivity.ggAgent.onResume();
 	}
 	
 	@Override
 	public void onDestroy(){
 		super.onDestroy();
-		floatAdlayout.removeAllHeadAd();
+		floatAdlayout.remove();
 	}
 	
 	
 	@Override
 	public void onPause(){
 		super.onPause();
-		SplashScreenActivity.ggAgent.onPause();
+	
 	}
 
 
