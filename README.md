@@ -28,7 +28,9 @@ Install the GreedygameAgent in the activity
 
 ##### `public static GreedyGameAgent install(Activity activity, IAgentListener agentListener);`
 
-##### `GreedyGameAgent ggAgent = GreedyGameAgent.install(this,listener);`
+```java
+GreedyGameAgent ggAgent = GreedyGameAgent.install(this,listener);
+```
 
 ---------
 
@@ -82,8 +84,7 @@ try {
 ```
 
 ----
-
-**Other Utilities Methods**
+### Other Utilities Methods
 
 ##### `public String get_verison()`
 Return sdk version
@@ -93,7 +94,7 @@ Set sdk into debug mode
 
 ----
 
-#### interface IAgentListener
+#### Interface IAgentListener
 **Class Overview**
 
 It is used as a callback listener argument for GreedyGameAgent class
@@ -102,10 +103,9 @@ It is used as a callback listener argument for GreedyGameAgent class
  
 ##### `void onInit(OnInitEvent response)`
 
-response value to indicate
-
-    CAMPAIGN_NOT_AVAILABLE = using no campaign
-    CAMPAIGN_AVAILABLE = Campaign is active 
+OnInitEvent enum contain values in
+**CAMPAIGN_NOT_AVAILABLE** means no campaign is available
+**CAMPAIGN_AVAILABLE** means there active campaign to download or alread cached in device.
 
 ##### `void onDownload()`
 Called when new branded contents are downloaded so that new scene can fetch assets from getActivePath(). Called after onInit callback.
@@ -203,7 +203,7 @@ class GGListner implements IAgentListener{
 ---
 
 ### External Jars
-GreedyGame SDK uses Volley from Google as external jars. In case of conflicts you can remove it from libs folder of the wrapper. 
+GreedyGame SDK uses Volley from Google as external jars. In the case of conflicts you can remove it from libs folder of the wrapper. 
 
 ### For Hello Tutorial, goto [andorid-native-sample](andorid-native-sample)  
 ### For more help please see [FAQ] (https://github.com/GreedyGame/unity-plugin/wiki/FAQs)
