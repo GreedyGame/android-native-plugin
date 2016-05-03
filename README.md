@@ -103,10 +103,9 @@ It is used as a callback listener argument for GreedyGameAgent class
  
 ##### `void onInit(OnInitEvent response)`
 
-response value to indicate
-
-    CAMPAIGN_NOT_AVAILABLE = using no campaign
-    CAMPAIGN_AVAILABLE = Campaign is active 
+OnInitEvent enum contain values in
+**CAMPAIGN_NOT_AVAILABLE** means no campaign is available
+**CAMPAIGN_AVAILABLE** means there active campaign to download or alread cached in device.
 
 ##### `void onDownload()`
 Called when new branded contents are downloaded so that new scene can fetch assets from getActivePath(). Called after onInit callback.
