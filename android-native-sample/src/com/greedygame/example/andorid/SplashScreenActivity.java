@@ -20,7 +20,7 @@ import com.greedygame.android.agent.IAgentListener;
 public class SplashScreenActivity extends Activity {
 
 	protected static GreedyGameAgent ggAgent;
-	private final String[] units = {"sun.png","unit-12345","float-701","float-713","float-10000"};
+	private final String[] units = {"sun.png","float-701","float-713"};
 	private TextView loadingView = null;
 	private float downloadProgress = 0;
 	private Runnable updateProgress = null;

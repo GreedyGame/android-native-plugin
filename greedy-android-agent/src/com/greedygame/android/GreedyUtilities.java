@@ -25,4 +25,17 @@ public class GreedyUtilities {
 	    
 	    return null;
 	}
+
+	public static  Bitmap getBitmapByResName(GreedyGameAgent ggAgent, String resName) {
+
+	       File file = new File(ggAgent.getActivePath()
+	               + "/" + resName);
+	       if (file.exists()) {
+	           return BitmapFactory.decodeFile(file.getAbsolutePath());
+	       }
+
+
+	       return null;
+	   }
+
 }
