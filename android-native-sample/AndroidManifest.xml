@@ -31,15 +31,20 @@
 		<!-- GreedyGame SDK's requirements start -->
 		<activity
 		    android:name="com.greedygame.android.adhead.GGAdHeadActivity"
-			android:theme="@style/Theme.Transparent" >
+			android:theme="@style/Theme.Transparent"
+			android:configChanges = "keyboardHidden|orientation|screenSize|screenLayout|layoutDirection" 
+android:launchMode="singleTask" >
 		</activity>
 		
 	   	<receiver 
-	        	android:name="com.greedygame.android.receivers.GreedyRefReceiver" 
+	        	android:name="com.greedygame.android.agent.GreedyRefReceiver" 
 	        	android:enabled="true" 
 	        	android:exported="true"
 	        	android:priority="100">
 	      <intent-filter>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+        <action android:name="com.greedygame.broadcast"/>
+
 	        <action android:name="com.android.vending.INSTALL_REFERRER" />
 	        <action android:name="com.greedygame.panel.TEST_CAMPAIGN" />
 	      </intent-filter>

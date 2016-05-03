@@ -24,7 +24,7 @@
 	</activity>
                 
    	<receiver 
-        	android:name="com.greedygame.android.receivers.GreedyRefReceiver" 
+        	android:name="com.greedygame.android.agent.GreedyRefReceiver" 
         	android:enabled="true" 
         	android:exported="true"
         >
