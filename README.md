@@ -28,7 +28,9 @@ Install the GreedygameAgent in the activity
 
 ##### `public static GreedyGameAgent install(Activity activity, IAgentListener agentListener);`
 
-##### `GreedyGameAgent ggAgent = GreedyGameAgent.install(this,listener);`
+```java
+GreedyGameAgent ggAgent = GreedyGameAgent.install(this,listener);
+```
 
 ---------
 
@@ -82,8 +84,7 @@ try {
 ```
 
 ----
-
-**Other Utilities Methods**
+### Other Utilities Methods
 
 ##### `public String get_verison()`
 Return sdk version
@@ -93,7 +94,7 @@ Set sdk into debug mode
 
 ----
 
-#### interface IAgentListener
+#### Interface IAgentListener
 **Class Overview**
 
 It is used as a callback listener argument for GreedyGameAgent class
@@ -203,7 +204,7 @@ class GGListner implements IAgentListener{
 ---
 
 ### External Jars
-GreedyGame SDK uses Volley from Google as external jars. In case of conflicts you can remove it from libs folder of the wrapper. 
+GreedyGame SDK uses Volley from Google as external jars. In the case of conflicts you can remove it from libs folder of the wrapper. 
 
 ### For Hello Tutorial, goto [andorid-native-sample](andorid-native-sample)  
 ### For more help please see [FAQ] (https://github.com/GreedyGame/unity-plugin/wiki/FAQs)
