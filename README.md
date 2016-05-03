@@ -147,8 +147,7 @@ class GGListner implements IAgentListener{
 
     @Override
     public void onInit(OnInitEvent response) {
-        if(response == OnInitEvent.CAMPAIGN_CACHED || 
-            response == OnInitEvent.CAMPAIGN_FOUND){
+        if(response == OnInitEvent.CAMPAIGN_AVAILABLE){
             isBranded = true;
         }else{
             isBranded = false;
