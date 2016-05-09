@@ -102,7 +102,7 @@ public class SplashScreenActivity extends Activity {
 		};
 		
 		ggAgent = GreedyGameAgent.install(this, new GG_Listener());
-		ggAgent.setDebug(false);
+		ggAgent.setDebugCampaign(false);
 		ggAgent.init(units, FetchType.DOWNLOAD_BY_PATH);
 		
 		final Activity thisActivity = this;
