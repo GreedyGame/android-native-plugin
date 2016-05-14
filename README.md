@@ -174,7 +174,7 @@ void onError() {
 ```
 > **Important** : both `onDownload()` and `onError()` are called only after you get a callback on `onInit()`. If you get `CAMPAIGN_NOT_AVAILABLE` in `onInit()` function then no further callbacks will be supplied to `onSuccess` and `onError()`.
 
-#### **Callback - when there are unavailable permissions**
+##### **Callback - when there are unavailable permissions**
 ```java
 void onPermissionsUnavailable(ArrayList<String> permissions) 
 ```
@@ -209,7 +209,7 @@ class GGListner implements IAgentListener{
     @Override
     public void onInit(OnInitEvent response) {
         if(response == OnInitEvent.CAMPAIGN_AVAIALABLE ){
-            //waiting for onDownload or onError callback !
+            //waiting for onDownload or onError callback ! 
         }else if(response == OnInitEvent.CAMPAIGN_NOT_AVAIALABLE ){
             isBranded = false;
         }
@@ -254,6 +254,18 @@ class GGListner implements IAgentListener{
 </application>
 
 ```
+
+#### **Special Requirements**
+**System.exit(0)**
+If you are using the following function to exit from the game 
+`System.exit(0);`
+then you should make sure that you are calling the below function just before exiting !
+`GreedyGameAgent.getInstance().onActivityPaused((Activity) context);
+Sytem.exit(0);` 
+>**Note** : This is applicable only for `System.exit()` if you are using **finish()** function inside the Activity then you **should not call** the above code snippet !
+
+
+
 
 ### External Jars
 GreedyGame SDK uses Volley from Google as external jars. In the case of conflicts you can remove it from libs folder of the wrapper. 
