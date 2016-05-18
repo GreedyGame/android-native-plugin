@@ -282,13 +282,13 @@ then you should make sure that you are calling the below function just before ex
 #### **Proguard Settings**
 
 If you are using Proguard add the following to your Proguard settings ! 
-
-`-keep class com.greedygame.android.** { *;}
+```
+-keep class com.greedygame.android.** { *;}
 -keepattributes JavascriptInterface
 -keepclassmembers class * {
     @android.webkit.JavascriptInterface <methods>;
-}`
-
+ }
+```
 
 ### External Jars
 GreedyGame SDK uses Volley from Google as external jars. In the case of conflicts you can remove it from libs folder of the wrapper. 
