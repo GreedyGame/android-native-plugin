@@ -264,7 +264,15 @@ then you should make sure that you are calling the below function just before ex
 Sytem.exit(0);` 
 >**Note** : This is applicable only for `System.exit()` if you are using **finish()** function inside the Activity then you **should not call** the above code snippet !
 
+#### **Proguard Settings**
 
+If you are using Proguard add the following to your Proguard settings ! 
+
+`-keep class com.greedygame.android.** { *;}
+-keepattributes JavascriptInterface
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}`
 
 
 ### External Jars
