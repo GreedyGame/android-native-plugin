@@ -255,6 +255,22 @@ class GGListner implements IAgentListener{
 
 ```
 
+**Recommended Manifest changes**
+
+The GreedyGame SDK is connected with the activity lifecycle of your game. 
+Generally Games works in either portrait or landscape mode for consistent user experience. Hence it is advisable **not** to recreate the activity on config changes which may happen due to power button press etc.
+
+To avoid this immediate activity creation and destroying overhead, add the following configChanges in the Manifest file.
+
+```
+<activity
+ android:name="com.package.YourActivity"
+ android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|layoutDirection">
+</activity>
+```
+
+This is an **optimization** . The SDK will handle all related changes if your game supports multiple orientations.
+
 #### **Special Requirements**
 **On Game Exit**
 If you are using the following function to exit from the game 
