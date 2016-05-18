@@ -256,13 +256,12 @@ class GGListner implements IAgentListener{
 ```
 
 #### **Special Requirements**
-**System.exit(0)**
+**On Game Exit**
 If you are using the following function to exit from the game 
-`System.exit(0);`
+`System.exit(0);` or `android.os.Process.killProcess(android.os.Process.myPid());`
 then you should make sure that you are calling the below function just before exiting !
-`GreedyGameAgent.getInstance().onActivityPaused((Activity) context);
-Sytem.exit(0);` 
->**Note** : This is applicable only for `System.exit()` if you are using **finish()** function inside the Activity then you **should not call** the above code snippet !
+`GreedyGameAgent.getInstance().onActivityPaused((Activity) context);` 
+>**Note** : This is applicable only for `System.exit(0);` or `android.os.Process.killProcess(android.os.Process.myPid());` if you are using `finish();` function inside the Activity then you **should not call** the above code snippet !
 
 #### **Proguard Settings**
 
