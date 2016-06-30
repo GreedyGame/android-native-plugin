@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.greedygame.android.agent.GreedyGameAgent;
-import com.greedygame.android.agent.GreedyGameAgent.FetchType;
 import com.greedygame.android.agent.GreedyGameAgent.OnInitEvent;
 import com.greedygame.android.agent.IAgentListener;
 
@@ -103,7 +102,7 @@ public class SplashScreenActivity extends Activity {
 		
 		ggAgent = GreedyGameAgent.install(this, new GG_Listener());
 		ggAgent.setDebugCampaign(false);
-		ggAgent.init(units, FetchType.DOWNLOAD_BY_PATH);
+		ggAgent.init();
 		
 		final Activity thisActivity = this;
 		Button b1 = (Button) findViewById(R.id.button1);

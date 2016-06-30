@@ -9,13 +9,13 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.greedygame.android.GreedyUtilities;
-import com.greedygame.android.adhead.FloatAdLayout;
+import com.greedygame.android.adhead.FloatUnitLayout;
 import com.greedygame.android.exceptions.AgentInitNotCalledException;
 
 public class AnimatedActivity extends Activity {
    
     private String themePath = null;
-    private FloatAdLayout floatAdlayout = null;
+    private FloatUnitLayout floatUnitLayout = null;
 
 
 	@Override
@@ -26,14 +26,14 @@ public class AnimatedActivity extends Activity {
     	themePath = SplashScreenActivity.ggAgent.getActivePath();
     	
     	/*** Fetching Float Ad unit ***/
-    	floatAdlayout = new FloatAdLayout(this);
+    	floatUnitLayout = new FloatUnitLayout(this);
     	Log.i("GreedyGame Sample", "activePath "+themePath);
 		
     	try {
-    		floatAdlayout.fetchHeadAd("float-701", true);
+    		floatUnitLayout.fetchFloatAd("float-701", true);
     		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			((Activity) this).addContentView(floatAdlayout, params);
+			((Activity) this).addContentView(floatUnitLayout, params);
 		} catch (AgentInitNotCalledException e) {
 			e.printStackTrace();
 		}
@@ -55,7 +55,7 @@ public class AnimatedActivity extends Activity {
 	@Override
 	public void onDestroy(){
 		super.onDestroy();
-		floatAdlayout.remove();
+		floatUnitLayout.removeFloatAd();
 	}
 	
 	
