@@ -23,14 +23,14 @@ public class AnimatedActivity extends Activity {
 		super.onCreate(savedInstanceState);
     	setContentView(R.layout.activity_animated);
     	
-    	themePath = SplashScreenActivity.ggAgent.getActivePath();
+    	themePath = SplashScreenActivity.ggAgent.getCampaignPath();
     	
     	/*** Fetching Float Ad unit ***/
     	floatUnitLayout = new FloatUnitLayout(this);
     	Log.i("GreedyGame Sample", "activePath "+themePath);
 		
     	try {
-    		floatUnitLayout.fetchFloatAd("float-701", true);
+    		floatUnitLayout.fetchFloatUnit("float-701", true);
     		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			((Activity) this).addContentView(floatUnitLayout, params);
@@ -55,7 +55,7 @@ public class AnimatedActivity extends Activity {
 	@Override
 	public void onDestroy(){
 		super.onDestroy();
-		floatUnitLayout.removeFloatAd();
+		floatUnitLayout.removeAllFloatUnits();
 	}
 	
 	

@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.greedygame.android.agent.GreedyGameAgent;
-import com.greedygame.android.agent.GreedyGameAgent.OnInitEvent;
 import com.greedygame.android.agent.IAgentListener;
 
 
@@ -30,41 +29,28 @@ public class SplashScreenActivity extends Activity {
 	class GG_Listener implements IAgentListener{
 
 		@Override
-		public void onProgress(float progress) {
+		public void onProgress(int progress) {
 			Log.i("GreedyGame Sample", "Downloaded = "+progress+"%");
 			downloadProgress = progress;
 			runOnUiThread(updateProgress);
 		}
 
 		@Override
-		public void onDownload() {
-			runOnUiThread(updateText);
-		}
-
-
-
-		@Override
-		public void onInit(OnInitEvent response) {
-			Log.i("GreedyGame Sample", "response = "+response);
-			if(response == OnInitEvent.CAMPAIGN_NOT_AVAILABLE || response == OnInitEvent.CAMPAIGN_AVAILABLE
-				){
-				runOnUiThread(updateText);
-			}
-		}
-
-		
-
-		@Override
-		public void onError() {
-			// TODO Auto-generated method stub
-			
-		}
-
-
-		@Override
 		public void onPermissionsUnavailable(ArrayList<String> arg0) {
 			// TODO Auto-generated method stub
 			
+		}
+
+		@Override
+		public void onAvailable() {
+			// TODO Auto-generated method stub
+			runOnUiThread(updateText);
+		}
+
+		@Override
+		public void onUnavailable() {
+			// TODO Auto-generated method stub
+			runOnUiThread(updateText);
 		}
 }
 	

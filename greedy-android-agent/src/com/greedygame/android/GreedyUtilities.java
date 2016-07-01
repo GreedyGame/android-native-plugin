@@ -15,9 +15,9 @@ public class GreedyUtilities {
 			return null;
 		}
 		
-			String path = ggAgent.getActivePath();
+			String path = ggAgent.getCampaignPath();
 			String resName = GreedyGameAgent.getAppContext().getResources().getResourceEntryName(resid);
-			File file = new File(ggAgent.getActivePath()
+			File file = new File(ggAgent.getCampaignPath()
 					+ "/" + resName + ".png");
 			if (file.exists()) {
 				return BitmapFactory.decodeFile(file.getAbsolutePath());
@@ -28,7 +28,7 @@ public class GreedyUtilities {
 
 	public static  Bitmap getBitmapByResName(GreedyGameAgent ggAgent, String resName) {
 
-	       File file = new File(ggAgent.getActivePath()
+	       File file = new File(ggAgent.getCampaignPath()
 	               + "/" + resName);
 	       if (file.exists()) {
 	           return BitmapFactory.decodeFile(file.getAbsolutePath());
