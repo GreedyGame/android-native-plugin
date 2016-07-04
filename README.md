@@ -1,5 +1,5 @@
 
- GreedyGame Android Native Reference
+GreedyGame Android Native Reference
 ===================
 
 ## Important Terms
@@ -7,20 +7,20 @@ Before we get started with the detailed reference, let’s brush through the def
 
 ## Documentations
 
-### GreedyGameAgent
+#### GreedyGameAgent
 
 Install the GreedygameAgent in the activity
 
-#### `public GreedyGameAgent install(Activity activity, IAgentListener agentListener);`
+##### `public GreedyGameAgent install(Activity activity, IAgentListener agentListener);`
 
 ---------
 
 **Methods**
 
-#### `public void init()`
+##### `public void init()`
 Lookup for an active campaign from the server. 
 
-#### `public String getCampaignPath()`
+##### `public String getCampaignPath()`
  Return path of folder, where assets of activeCampaign is stored.
 
 ----
@@ -31,7 +31,7 @@ Lookup for an active campaign from the server.
 Extended FrameLayout used to display FloatAd creatives
 
 **Public Constructors**
-#### `FloatAdLayout(Context context)`
+##### `FloatAdLayout(Context context)`
 
 Constructs a new instance of FloatAdLayout.
 
@@ -39,7 +39,7 @@ Constructs a new instance of FloatAdLayout.
 
 **Methods**
 
-#### `public void fetchFloatUnit(String unit_id) throws AgentInitNotCalledException`
+##### `public void fetchFloatUnit(String unit_id) throws AgentInitNotCalledException`
 Fetch floating AdHead unit and add view to current context. 
 
 * **unit_id** - Float unit id from panel.greedygame.com (e.g 'float-123')
@@ -59,34 +59,34 @@ try {
 
 **Other Utilities Methods**
 
-#### `public String get_verison()`
+##### `public String get_verison()`
 Return sdk version
     
-#### `public void setDebugLog(boolean b)`
+##### `public void setDebugLog(boolean b)`
 Set sdk into debug mode
 
 ----
 
-### interface IAgentListener
+#### interface IAgentListener
 **Class Overview**
 
 It is used as a callback listener argument for GreedyGameAgent class
 
 **Methods**
  
-#### `void onAvailable()`
+##### `void onAvailable()`
 When a new campaign is available and ready to use for the next scene.
 
-#### `void onUnavailable()`
+##### `void onUnavailable()`
 When no campaign is available
 
-#### `void onProgress(int progress)`
+##### `void onProgress(int progress)`
 Gives progress of campaign being downloaded as an integer.
 
-#### `void onPermissionsUnavailable(ArrayList permissions)`
+##### `void onPermissionsUnavailable(ArrayList permissions)`
 Gives a list of permission unavailable or revoked by the user.
 
-### Permissions that are checked :
+##### Permissions that are checked :
 
     Manifest.permission.ACCESS_COARSE_LOCATION
     Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -135,7 +135,7 @@ class GreedyAgentListener implements IAgentListener {
 }
 ```
 
-### Manifest Requirement
+#### Manifest Requirement
 ```xml
     
 <application>
