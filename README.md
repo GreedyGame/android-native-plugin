@@ -5,7 +5,7 @@ GreedyGame Android's SDK Reference
  * [Integration](#integration)
  * [Documentation](#documentation)
     * [GreedyGameAgent](#greedygameagent)
-    * [IAgentListener](#iagentlistener)
+    * [interface IAgentListener](#interface-iagentlistener)
     * [FloatUnitLayout](#floatunitlayout)
  * [FAQ](#faq)
 
@@ -61,6 +61,9 @@ Return array of all [nativeunit](http://greedygame.github.io/#nativeunits)'s nam
 
 ##### `public String[] getFloatUnitIds()`
 Return array of all [floatunit](http://greedygame.github.io/#floatunits)'s id used in the game
+
+##### `public void showEngagementWindow(string unit_id)`
+Open [engagement window](http://greedygame.github.io/#engagementwindow) attached with provided floatunit
 
 ##### `public String getCampaignPath()`
 Return path of folder, where assets of current campaign is stored.
