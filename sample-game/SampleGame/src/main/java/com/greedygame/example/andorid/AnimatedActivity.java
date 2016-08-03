@@ -68,7 +68,7 @@ public class AnimatedActivity extends Activity {
 	@Override
 	public void onDestroy(){
 		super.onDestroy();
-		floatUnitLayout.removeAllFloatUnits();
+		floatUnitLayout.removeCurrentFloatUnit();
 	}
 	
 	

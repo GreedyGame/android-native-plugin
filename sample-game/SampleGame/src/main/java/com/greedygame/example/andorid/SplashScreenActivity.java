@@ -26,7 +26,7 @@ public class SplashScreenActivity extends Activity {
 	private ProgressBar progressBar;
 	
 	 
-	class GG_Listener implements IAgentListener{
+	class GG_Listener implements IAgentListener {
 
 		@Override
 		public void onProgress(int progress) {
@@ -39,6 +39,11 @@ public class SplashScreenActivity extends Activity {
 		public void onPermissionsUnavailable(ArrayList<String> arg0) {
 			// TODO Auto-generated method stub
 			
+		}
+
+		@Override
+		public void onActionPerformed(String s, String s1) {
+
 		}
 
 		@Override
@@ -87,7 +92,7 @@ public class SplashScreenActivity extends Activity {
 		};
 		
 		ggAgent = GreedyGameAgent.install(this, new GG_Listener());
-		ggAgent.setDebugCampaign(false);
+		ggAgent.setDebugCampaign(this,false);
 		ggAgent.init();
 		
 		final Activity thisActivity = this;
