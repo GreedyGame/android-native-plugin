@@ -146,6 +146,32 @@ class GreedyAgentListener implements IAgentListener {
 }
 ```
 
+
+**Interface : IActionListener**
+```java
+class GreedyAgentListener implements IActionListener {
+    @Override
+        public boolean onActionPerformed(String floatUnit, String action) {
+            /* Set this listener to the float unit if you want 
+            // to listen for rewards at the end of engagement. 
+            //(if a reward is configured from server side) */
+
+        }
+    
+}
+```
+
+#### **Float Unit Usage of IActionListener**
+    ```floatUnitLayout = new FloatUnitLayout(this);
+       floatUnitLayout.setActionListener(new IActionListener() {
+
+            @Override
+            public boolean onActionPerformed(String floatUnit, String action) {
+                // Perform necessary action
+            }
+        });
+    ```
+
 -----
 ### FloatUnitLayout
 #### Class Overview
