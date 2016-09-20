@@ -1,2 +1,2 @@
 configurations.create("default")
-artifacts.add("default", file('r-plugin-greedy-android-168.aar'))
+artifacts.add("default", file('r-plugin-greedy-android-177.aar'))
