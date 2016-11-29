@@ -15,8 +15,7 @@
 		android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
 		android:screenOrientation="landscape" >
 
-		<meta-data android:name="com.google.android.gms.version"
-			android:value="4242000" />
+
 
 	    <activity android:name="com.greedygame.example.andorid.SplashScreenActivity" >
 			<intent-filter>

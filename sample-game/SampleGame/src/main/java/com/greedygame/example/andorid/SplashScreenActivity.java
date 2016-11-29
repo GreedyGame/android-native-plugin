@@ -12,8 +12,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.greedygame.android.agent.GreedyGameAgent;
-import com.greedygame.android.agent.IActionListener;
-import com.greedygame.android.agent.IAgentListener;
+import com.greedygame.android.core.campaign.CampaignProgressListener;
+import com.greedygame.android.core.campaign.CampaignStateListener;
+import com.greedygame.android.platforms.unity.GreedyGame;
 
 
 public class SplashScreenActivity extends Activity {
@@ -27,17 +28,11 @@ public class SplashScreenActivity extends Activity {
 	private ProgressBar progressBar;
 	
 	 
-	class GG_Listener implements IAgentListener {
+	class StateListener implements CampaignStateListener {
+
 
 		@Override
-		public void onProgress(int progress) {
-			Log.i("GreedyGame Sample", "Downloaded = "+progress+"%");
-			downloadProgress = progress;
-			runOnUiThread(updateProgress);
-		}
-
-		@Override
-		public void onPermissionsUnavailable(ArrayList<String> arg0) {
+		public void onFound() {
 			// TODO Auto-generated method stub
 			
 		}
@@ -56,11 +51,12 @@ public class SplashScreenActivity extends Activity {
 }
 
 
-	class ActionListener implements IActionListener {
-
+	class ProgressListener implements CampaignProgressListener {
 		@Override
-		public boolean onActionPerformed(String s, String s1) {
-			return false;
+		public void onProgress(int progress) {
+			Log.i("GreedyGame Sample", "Downloaded = "+progress+"%");
+			downloadProgress = progress;
+			runOnUiThread(updateProgress);
 		}
 	}
 	
@@ -95,10 +91,10 @@ public class SplashScreenActivity extends Activity {
 			}
 		};
 		
-		ggAgent = GreedyGameAgent.install(this, new GG_Listener());
-		ggAgent.setActionListener(new ActionListener());
-		ggAgent.setDebugCampaign(this,false);
-		ggAgent.init();
+		GreedyGameAgent.init(this);
+		GreedyGameAgent.setCampaignProgressListener(new ProgressListener());
+		GreedyGameAgent.setCampaignStateListener(new StateListener());
+
 		
 		final Activity thisActivity = this;
 		Button b1 = (Button) findViewById(R.id.button1);
