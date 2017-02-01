@@ -15,7 +15,8 @@ public class AnimatedActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
     	setContentView(R.layout.activity_animated);
-    	
+
+		GreedyGameAgent.init(this);
 
     	/*** Changing Native Ad units ***/
     	ImageView sun =  (ImageView) findViewById(R.id.sun);
@@ -42,7 +43,7 @@ public class AnimatedActivity extends Activity {
 	public void onResume(){
 		super.onResume();
 		/*** Fetching Float Ad unit ***/
-		GreedyGameAgent.Float.show(this,"float-701");
+		GreedyGameAgent.Float.show(this,"float-2014");
 	}
 	
 	@Override
@@ -55,7 +56,7 @@ public class AnimatedActivity extends Activity {
 	public void onPause(){
 		super.onPause();
 		/*** Fetching Float Ad unit ***/
-		GreedyGameAgent.Float.remove("float-701");
+		GreedyGameAgent.Float.remove("float-2014");
 	
 	}
 
