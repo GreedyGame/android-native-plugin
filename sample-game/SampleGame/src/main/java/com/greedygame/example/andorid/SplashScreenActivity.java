@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.greedygame.android.agent.GreedyGameAgent;
 import com.greedygame.android.core.campaign.CampaignProgressListener;
 import com.greedygame.android.core.campaign.CampaignStateListener;
-import com.greedygame.android.platforms.unity.GreedyGame;
 
 
 public class SplashScreenActivity extends Activity {
