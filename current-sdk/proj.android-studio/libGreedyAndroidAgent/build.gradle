@@ -1,3 +1,7 @@
 configurations.create("default")
+<<<<<<< HEAD
 artifacts.add("default", file('m-android-sdk-1026.aar'))
 
+=======
+artifacts.add("default", file('r-android-sdk-207.aar'))
+>>>>>>> 904dc882af9a9552ccc0707bca55c6c7cac61d56
