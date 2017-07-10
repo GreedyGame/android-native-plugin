@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 17
+    compileSdkVersion 23
     buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.greedygame.example.andorid"
         minSdkVersion 14
-        targetSdkVersion 19
+        targetSdkVersion 23
         multiDexEnabled true
     }
 

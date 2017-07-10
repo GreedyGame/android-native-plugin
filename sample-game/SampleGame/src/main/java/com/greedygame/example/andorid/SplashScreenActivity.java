@@ -51,11 +51,6 @@ public class SplashScreenActivity extends Activity {
 			runOnUiThread(updateText);
 		}
 
-		@Override
-		public void onError(String error){
-
-		}
-
 }
 
 

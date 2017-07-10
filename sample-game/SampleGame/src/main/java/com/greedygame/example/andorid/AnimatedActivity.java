@@ -17,7 +17,7 @@ public class AnimatedActivity extends Activity {
 
 
 	ImageView sun;
-	Button buttonRefresh,buttonForced,buttonUII;
+	Button buttonRefresh,buttonUII;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,12 +30,12 @@ public class AnimatedActivity extends Activity {
 		GreedyGameAgent.setCampaignStateListener(new CampaignStateListener() {
 			@Override
 			public void onFound() {
-
+				Toast.makeText(getApplication(),"sample found",Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onUnavailable() {
-
+				Toast.makeText(getApplication(),"sample unavailable",Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -46,7 +46,7 @@ public class AnimatedActivity extends Activity {
 
 			@Override
 			public void onError(String error){
-
+				Toast.makeText(getApplication(),error,Toast.LENGTH_SHORT).show();
 			}
 
 		});
@@ -56,15 +56,7 @@ public class AnimatedActivity extends Activity {
 		buttonRefresh.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				GreedyGameAgent.startEventRefresh();
-			}
-		});
-
-		buttonForced = (Button) findViewById(R.id.click_exit);
-		buttonForced.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				GreedyGameAgent.forcedExit();
+				/*GreedyGameAgent.startEventRefresh();*/
 			}
 		});
 
@@ -80,7 +72,7 @@ public class AnimatedActivity extends Activity {
 	}
 
 	public void changeTexture() {
-		String file = GreedyGameAgent.Native.getPath("unit-3342");
+		String file = GreedyGameAgent.Native.getPath("unit-2764");
 		Bitmap bitmap ;
 		if(file!=null) {
 			bitmap = BitmapFactory.decodeFile(file);
