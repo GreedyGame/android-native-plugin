@@ -50,6 +50,12 @@ public class SplashScreenActivity extends Activity {
 			// TODO Auto-generated method stub
 			runOnUiThread(updateText);
 		}
+
+		@Override
+		public void onError(String error){
+
+		}
+
 }
 
 
