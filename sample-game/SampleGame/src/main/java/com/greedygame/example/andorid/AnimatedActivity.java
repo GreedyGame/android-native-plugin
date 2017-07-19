@@ -56,7 +56,7 @@ public class AnimatedActivity extends Activity {
 		buttonRefresh.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				GreedyGameAgent.startEventRefresh();
+				//GreedyGameAgent.startEventRefresh();
 			}
 		});
 
