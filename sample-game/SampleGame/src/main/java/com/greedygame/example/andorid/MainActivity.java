@@ -37,8 +37,8 @@ public class MainActivity extends Activity {
 
 	private static final String TAG = MainActivity.class.getSimpleName();
 	int PERMISSION_ALL = 1;
-	private String floatUnitIdString ="float-2014";
-	private String nativeUnitIdString="unit-2451";
+	private String floatUnitIdString ="float-2473";
+	private String nativeUnitIdString="unit-3408";
 	private Runnable updateProgress = null;
 	private float downloadProgress = 0;
 	private DonutProgress mDonutProgress;
@@ -124,7 +124,10 @@ public class MainActivity extends Activity {
 		GreedyGameAgent.setCampaignStateListener(new CampaignStateListener() {
 			@Override
 			public void onFound() {
-				Toast.makeText(getApplication(),"sample found",Toast.LENGTH_SHORT).show();
+				/*if(!GreedyGameAgent.isCampaignAvailable()){
+					Toast.makeText(getApplication(),"Campaign not found",Toast.LENGTH_SHORT).show();
+				}*/
+
 			}
 
 			@Override
