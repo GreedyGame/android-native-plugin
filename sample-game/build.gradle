@@ -4,7 +4,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.3.2'
     }
 }
 
@@ -12,5 +12,6 @@ allprojects {
    // buildDir = "C:/tmp/${rootProject.name}/${project.name}"
     repositories {
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }

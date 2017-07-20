@@ -4,7 +4,12 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
 	-->
-	<style name="AppBaseTheme" parent="android:Theme.Light">
+	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
 		<!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -12,9 +17,15 @@
 		-->
 	</style>
 
-	<!-- Application theme. -->
-	<style name="AppTheme" parent="AppBaseTheme">
-		<!-- All customizations that are NOT specific to a particular API-level can go here. -->
+	<style name="AppTheme.RoundedCornerMaterialButtonBlack" parent="Widget.AppCompat.Button.Colored">
+		<item name="android:background">@drawable/rounded_shape_black</item>
+	</style>
+	<style name="AppTheme.RoundedCornerMaterialButtonOrange" parent="Widget.AppCompat.Button.Colored">
+		<item name="android:background">@drawable/rounded_shape_orange</item>
 	</style>
 
+    <style name="myDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        ...
+    </style>
 </resources>

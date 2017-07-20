@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.greedygame.example.andorid"
+          xmlns:tools="http://schemas.android.com/tools"
           android:versionCode="2"
           android:versionName="1.1">
 
@@ -11,23 +12,25 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:screenOrientation="landscape"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+        android:label="Sample App"
+        tools:replace="label"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
 
 
-        <activity android:name="com.greedygame.example.andorid.SplashScreenActivity">
+        <activity
+            android:name="com.greedygame.example.andorid.MainActivity"
+            android:label="Sample App"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity
-            android:name="com.greedygame.example.andorid.AnimatedActivity">
-        </activity>
-
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f17bcdbe0df7f88d8ededccc7d7448ff047c3126"
+            />
 
     </application>
 
