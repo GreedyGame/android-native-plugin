@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$/../current-sdk/proj.android-studio/libGreedyAndroidAgent" />
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/SampleGame" />
+            <option value="$PROJECT_DIR$/greedycommons" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

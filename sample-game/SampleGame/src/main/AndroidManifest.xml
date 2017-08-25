@@ -10,7 +10,7 @@
 
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="Sample App"
         tools:replace="label"

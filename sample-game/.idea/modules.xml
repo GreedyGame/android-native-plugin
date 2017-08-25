@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SampleGame/SampleGame.iml" filepath="$PROJECT_DIR$/SampleGame/SampleGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greedycommons/greedycommons.iml" filepath="$PROJECT_DIR$/greedycommons/greedycommons.iml" />
       <module fileurl="file://$PROJECT_DIR$/../current-sdk/proj.android-studio/libGreedyAndroidAgent/libGreedyAndroidAgent.iml" filepath="$PROJECT_DIR$/../current-sdk/proj.android-studio/libGreedyAndroidAgent/libGreedyAndroidAgent.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample-game.iml" filepath="$PROJECT_DIR$/sample-game.iml" />
     </modules>
