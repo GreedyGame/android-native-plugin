@@ -12,18 +12,19 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.crashlytics.android.Crashlytics;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.greedygame.android.agent.GreedyGameAgent;
+import com.greedygame.android.core.campaign.CampaignManager;
 import com.greedygame.android.core.campaign.CampaignProgressListener;
 import com.greedygame.android.core.campaign.CampaignStateListener;
-import com.greedygame.android.core.helper.DeviceHelper;
-import com.greedygame.android.core.helper.SDKHelper;
-import com.greedygame.android.core.network.RequestConstants;
+
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +67,7 @@ public class MainActivity extends Activity implements CampaignStateListener, Cam
 	String gg_profile;
 	@BindString(R.string.greedygame_sdkVersion)
 	String gg_sdkVersion;
+	private GreedyGameAgent mGreedyGameAgent;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,8 +86,9 @@ public class MainActivity extends Activity implements CampaignStateListener, Cam
 				.setFontAttrId(R.attr.fontPath)
 				.build()
 		);
-		GreedyGameAgent.setCampaignProgressListener(this);
-		GreedyGameAgent.setCampaignStateListener(this);
+		mGreedyGameAgent = new GreedyGameAgent();
+		mGreedyGameAgent.setCampaignProgressListener(this);
+		mGreedyGameAgent.setCampaignStateListener(this);
 		mUpdateProgress =new Runnable() {
 			@Override
 			public void run() {
@@ -112,7 +115,7 @@ public class MainActivity extends Activity implements CampaignStateListener, Cam
 	}
 
 	public void changeTexture() {
-		String file = GreedyGameAgent.Native.getPath(nativeUnitIdString);
+		String file = mGreedyGameAgent.getPath(nativeUnitIdString);
 		Bitmap bitmap ;
 		if(file!=null) {
 			bitmap = BitmapFactory.decodeFile(file);
@@ -126,11 +129,10 @@ public class MainActivity extends Activity implements CampaignStateListener, Cam
 	public void onResume(){
 		super.onResume();
 		/*//*** Fetching Float Ad unit ***//**/
-		GreedyGameAgent.Float.show(this, floatUnitIdString);
-		if(SDKHelper.getInstance().isInitialized()){
+		mGreedyGameAgent.showFloat(this, floatUnitIdString);
+		if(!TextUtils.isEmpty(CampaignManager.getInstance().getActiveCampaignId())){
 			mDonutProgress.setProgress(100);
 			information="Game ID: "+getGameProfileId(MainActivity.this)+"\n"+
-					"Android ID: "+DeviceHelper.getInstance().getValue(RequestConstants.ANDROID_ID)+"\n"+
 					"SDK Version: "+getSDKVersion(MainActivity.this);
 			nativeUnitid.setText(nativeUnitIdString);
 			floatUnitId.setText(floatUnitIdString);
@@ -147,7 +149,7 @@ public class MainActivity extends Activity implements CampaignStateListener, Cam
 	public void onPause(){
 		super.onPause();
 		/*//*** Fetching Float Ad unit ***//**/
-		GreedyGameAgent.Float.remove(floatUnitIdString);
+		mGreedyGameAgent.removeFloat(floatUnitIdString);
 	
 	}
 
@@ -178,8 +180,8 @@ public class MainActivity extends Activity implements CampaignStateListener, Cam
 
 	@OnClick(R.id.initSDK)
 	void initializeSDK(){
-		if(!SDKHelper.getInstance().isInitialized()){
-			GreedyGameAgent.init(MainActivity.this);
+		if(!TextUtils.isEmpty(CampaignManager.getInstance().getActiveCampaignId())){
+			mGreedyGameAgent.init(MainActivity.this);
 			runOnUiThread(mUpdateProgress);
 			mDonutProgress.setProgress(mDownloadProgress);
 		}
@@ -187,17 +189,17 @@ public class MainActivity extends Activity implements CampaignStateListener, Cam
 
 	@OnClick(R.id.showUII)
 	void showUII(){
-		GreedyGameAgent.Float.showUII(floatUnitIdString);
+		mGreedyGameAgent.showUII(floatUnitIdString);
 	}
 
 	@OnClick(R.id.showFloat)
 	void showFloat(){
-		GreedyGameAgent.Float.show(MainActivity.this, floatUnitIdString);
+		mGreedyGameAgent.showFloat(MainActivity.this, floatUnitIdString);
 	}
 
 	@OnClick(R.id.removeFloat)
 	void removeFloat(){
-		GreedyGameAgent.Float.remove(floatUnitIdString);
+		mGreedyGameAgent.removeFloat(floatUnitIdString);
 	}
 
 	@OnClick(R.id.showNative)
@@ -236,7 +238,6 @@ public class MainActivity extends Activity implements CampaignStateListener, Cam
 		nativeUnitid.setText(nativeUnitIdString);
 		floatUnitId.setText(floatUnitIdString);
 		information="Game ID: "+getGameProfileId(MainActivity.this)+"\n"+
-				"Android ID: "+DeviceHelper.getInstance().getValue(RequestConstants.ANDROID_ID)+"\n"+
 				"SDK Version: "+getSDKVersion(MainActivity.this);
 		changeTexture();
 	}
