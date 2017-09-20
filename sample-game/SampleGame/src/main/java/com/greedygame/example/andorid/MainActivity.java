@@ -136,7 +136,7 @@ public class MainActivity extends Activity {
             }
 
             @Override
-            public void onAvailable() {
+            public void onAvailable(String campaignID) {
                 Toast.makeText(getApplication(), "sample available", Toast.LENGTH_SHORT).show();
                 nativeUnitid.setText(nativeUnitIdString);
                 floatUnitId.setText(floatUnitIdString);
@@ -200,7 +200,7 @@ public class MainActivity extends Activity {
         mEventRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //GreedyGameAgent.startEventRefresh();
+                GreedyGameAgent.startEventRefresh();
             }
         });
 
