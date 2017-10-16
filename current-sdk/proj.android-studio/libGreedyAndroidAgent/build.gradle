@@ -1,2 +1,2 @@
 configurations.create("default")
-artifacts.add("default", file('android_sdk-2013.aar'))
+artifacts.add("default", file('android_sdk-2014.aar'))
