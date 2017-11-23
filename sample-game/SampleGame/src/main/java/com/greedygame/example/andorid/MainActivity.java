@@ -4,14 +4,19 @@ package com.greedygame.example.andorid;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,9 +28,8 @@ import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.greedygame.android.agent.GreedyGameAgent;
 import com.greedygame.android.core.campaign.CampaignProgressListener;
 import com.greedygame.android.core.campaign.CampaignStateListener;
-import com.greedygame.android.core.helper.DeviceHelper;
+import com.greedygame.android.commons.DeviceHelper;
 import com.greedygame.android.core.helper.SDKHelper;
-import com.greedygame.android.core.network.RequestConstants;
 
 import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -40,6 +44,10 @@ public class MainActivity extends Activity {
     private Runnable updateProgress = null;
     private float downloadProgress = 0;
     private DonutProgress mDonutProgress;
+    private GreedyGameAgent mGreedyGameAgent;
+    private DeviceHelper mDeviceHelper;
+    private SDKHelper mSDKHelper;
+    private boolean isSDKInitialized = false;
     ImageView nativeUnit, moreInfo;
     TextView floatUnitId, nativeUnitid;
     CharSequence information = "\n Information not available";
@@ -51,7 +59,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
-
+        mGreedyGameAgent = new GreedyGameAgent();
+        mDeviceHelper = new DeviceHelper(this, null);
+        mSDKHelper = SDKHelper.getInstance();
         String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         if (!hasPermissions(this, PERMISSIONS)) {
@@ -78,11 +88,10 @@ public class MainActivity extends Activity {
         initSDK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!SDKHelper.getInstance().isInitialized()) {
-                    GreedyGameAgent.init(MainActivity.this);
-                    runOnUiThread(updateProgress);
-                    mDonutProgress.setProgress(downloadProgress);
-                }
+                mGreedyGameAgent.init(MainActivity.this);
+                runOnUiThread(updateProgress);
+                isSDKInitialized = true;
+                mDonutProgress.setProgress(downloadProgress);
             }
         });
 
@@ -101,7 +110,7 @@ public class MainActivity extends Activity {
 				if(mProgressDialog.getProgress() == 100){
 					mProgressDialog.dismiss();
 				}*/
-				/*if(!SDKHelper.getInstance().isInitialized()){
+                /*if(!SDKHelper.getInstance().isInitialized()){
                     mProgressBar.setVisibility(View.VISIBLE);
                     mProgressBar.setProgress((int) downloadProgress);
                     if(mProgressBar.getProgress()==100){
@@ -121,11 +130,11 @@ public class MainActivity extends Activity {
             }
         });
 
-        GreedyGameAgent.setCampaignStateListener(new CampaignStateListener() {
+        mGreedyGameAgent.setCampaignStateListener(new CampaignStateListener() {
             @Override
             public void onFound() {
-				/*if(!GreedyGameAgent.isCampaignAvailable()){
-					Toast.makeText(getApplication(),"Campaign not found",Toast.LENGTH_SHORT).show();
+                /*if(!GreedyGameAgent.isCampaignAvailable()){
+                    Toast.makeText(getApplication(),"Campaign not found",Toast.LENGTH_SHORT).show();
 				}*/
 
             }
@@ -141,7 +150,7 @@ public class MainActivity extends Activity {
                 nativeUnitid.setText(nativeUnitIdString);
                 floatUnitId.setText(floatUnitIdString);
                 information = "Game ID: " + getGameProfileId(MainActivity.this) + "\n" +
-                        "Android ID: " + DeviceHelper.getInstance().getValue(RequestConstants.ANDROID_ID) + "\n" +
+                        "Android ID: " + mDeviceHelper.getAndroidId() + "\n" +
                         "SDK Version: " + getSDKVersion(MainActivity.this);
                 changeTexture();
 
@@ -154,7 +163,7 @@ public class MainActivity extends Activity {
 
         });
 
-        GreedyGameAgent.setCampaignProgressListener(new CampaignProgressListener() {
+        mGreedyGameAgent.setCampaignProgressListener(new CampaignProgressListener() {
             @Override
             public void onProgress(int progress) {
                 downloadProgress = progress;
@@ -165,21 +174,21 @@ public class MainActivity extends Activity {
         showUII.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GreedyGameAgent.Float.showUII(floatUnitIdString);
+                mGreedyGameAgent.showUII(floatUnitIdString);
             }
         });
 
         showFloat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GreedyGameAgent.Float.show(MainActivity.this, floatUnitIdString);
+                mGreedyGameAgent.showFloat(MainActivity.this, floatUnitIdString);
             }
         });
 
         removeFloat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GreedyGameAgent.Float.remove(floatUnitIdString);
+                mGreedyGameAgent.removeFloat(floatUnitIdString);
             }
         });
 
@@ -200,10 +209,9 @@ public class MainActivity extends Activity {
         mEventRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GreedyGameAgent.startEventRefresh();
+                mGreedyGameAgent.startEventRefresh();
             }
         });
-
         changeTexture();
     }
 
@@ -224,7 +232,8 @@ public class MainActivity extends Activity {
     }
 
     public void changeTexture() {
-        String file = GreedyGameAgent.Native.getPath(nativeUnitIdString);
+        String file = mGreedyGameAgent.getPath(nativeUnitIdString);
+        Log.d(TAG, "Path of " + nativeUnitIdString + ": " + file);
         Bitmap bitmap;
         if (file != null) {
             bitmap = BitmapFactory.decodeFile(file);
@@ -237,12 +246,14 @@ public class MainActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-		/*//*** Fetching Float Ad unit ***//**/
-        GreedyGameAgent.Float.show(this, floatUnitIdString);
-        if (SDKHelper.getInstance().isInitialized()) {
-            mDonutProgress.setProgress(100);
+        /*//*** Fetching Float Ad unit ***//**/
+       /* if (isSDKInitialized) {
+            mGreedyGameAgent.showFloat(this, floatUnitIdString);
+        }*/
+        if (mSDKHelper != null) {
+            //mDonutProgress.setProgress(100);
             information = "Game ID: " + getGameProfileId(MainActivity.this) + "\n" +
-                    "Android ID: " + DeviceHelper.getInstance().getValue(RequestConstants.ANDROID_ID) + "\n" +
+                    "Android ID: " + mDeviceHelper.getAndroidId() + "\n" +
                     "SDK Version: " + getSDKVersion(MainActivity.this);
             nativeUnitid.setText(nativeUnitIdString);
             floatUnitId.setText(floatUnitIdString);
@@ -259,7 +270,9 @@ public class MainActivity extends Activity {
     public void onPause() {
         super.onPause();
 		/*//*** Fetching Float Ad unit ***//**/
-        GreedyGameAgent.Float.remove(floatUnitIdString);
+        /*if (isSDKInitialized) {
+            mGreedyGameAgent.removeFloat(floatUnitIdString);
+        }*/
 
     }
 
