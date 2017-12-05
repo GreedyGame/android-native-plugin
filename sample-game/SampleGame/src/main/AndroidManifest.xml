@@ -19,8 +19,10 @@
 
         <activity
             android:name="com.greedygame.example.andorid.MainActivity"
-            android:label="Sample App"
-            android:screenOrientation="portrait">
+            android:configChanges="orientation|screenSize"
+
+            android:launchMode="singleTask"
+            android:label="Sample App">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

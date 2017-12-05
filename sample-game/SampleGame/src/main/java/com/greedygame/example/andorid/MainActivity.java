@@ -57,6 +57,7 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG,"Activity Created");
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         mGreedyGameAgent = new GreedyGameAgent();
@@ -246,6 +247,7 @@ public class MainActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG,"Activity Resumed");
         /*//*** Fetching Float Ad unit ***//**/
        /* if (isSDKInitialized) {
             mGreedyGameAgent.showFloat(this, floatUnitIdString);
@@ -263,12 +265,14 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d(TAG,"Activity Destroyed");
     }
 
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.d(TAG,"Activity Paused");
 		/*//*** Fetching Float Ad unit ***//**/
         /*if (isSDKInitialized) {
             mGreedyGameAgent.removeFloat(floatUnitIdString);
