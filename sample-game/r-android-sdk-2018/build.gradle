@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('r-android-sdk-2018.aar'))

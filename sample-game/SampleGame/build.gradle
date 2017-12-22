@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId "com.greedygame.example.andorid"
-        minSdkVersion 21
+        minSdkVersion 10
         targetSdkVersion 23
         multiDexEnabled true
     }
@@ -37,8 +37,7 @@ android {
 }
 
 dependencies {
-    compile project(':greedycommons-debug')
-    compile project(':greedygame-debug')
+    compile project(':r-android-sdk-2018')
     compile 'com.google.android.gms:play-services-ads:9.4.0'
     compile 'com.android.support:design:23.2.0'
     compile 'com.android.support:cardview-v7:23.2.0'

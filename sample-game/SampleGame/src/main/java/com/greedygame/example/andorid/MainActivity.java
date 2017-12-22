@@ -2,33 +2,38 @@ package com.greedygame.example.andorid;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.AppCompatButton;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.greedygame.android.commons.*;
 
 import com.crashlytics.android.Crashlytics;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.greedygame.android.agent.GreedyGameAgent;
 import com.greedygame.android.core.campaign.CampaignProgressListener;
 import com.greedygame.android.core.campaign.CampaignStateListener;
-import com.greedygame.android.commons.DeviceHelper;
 import com.greedygame.android.core.helper.SDKHelper;
 
 import io.fabric.sdk.android.Fabric;
@@ -45,13 +50,13 @@ public class MainActivity extends Activity {
     private float downloadProgress = 0;
     private DonutProgress mDonutProgress;
     private GreedyGameAgent mGreedyGameAgent;
-    private DeviceHelper mDeviceHelper;
     private SDKHelper mSDKHelper;
     private boolean isSDKInitialized = false;
     ImageView nativeUnit, moreInfo;
     TextView floatUnitId, nativeUnitid;
     CharSequence information = "\n Information not available";
     Button showUII, initSDK, showFloat, removeFloat, showNative, hideNative;
+    private Button mCrashBtn;
     TextView mEventRefresh;
 
     @Override
@@ -61,7 +66,6 @@ public class MainActivity extends Activity {
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         mGreedyGameAgent = new GreedyGameAgent();
-        mDeviceHelper = new DeviceHelper(this, null);
         mSDKHelper = SDKHelper.getInstance();
         String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
@@ -85,6 +89,7 @@ public class MainActivity extends Activity {
         floatUnitId = (TextView) findViewById(R.id.funitId);
         nativeUnitid = (TextView) findViewById(R.id.nunitId);
         mEventRefresh = (TextView) findViewById(R.id.event_refresh);
+        mCrashBtn = (Button) findViewById(R.id.crashBtn);
         mDonutProgress.setTextSize(15);
         initSDK.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +98,13 @@ public class MainActivity extends Activity {
                 runOnUiThread(updateProgress);
                 isSDKInitialized = true;
                 mDonutProgress.setProgress(downloadProgress);
+            }
+        });
+
+        mCrashBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 String gameId=SDKHelper.getInstance().getValue(null);
             }
         });
 
@@ -131,38 +143,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        mGreedyGameAgent.setCampaignStateListener(new CampaignStateListener() {
-            @Override
-            public void onFound() {
-                /*if(!GreedyGameAgent.isCampaignAvailable()){
-                    Toast.makeText(getApplication(),"Campaign not found",Toast.LENGTH_SHORT).show();
-				}*/
-
-            }
-
-            @Override
-            public void onUnavailable() {
-                Toast.makeText(getApplication(), "sample unavailable", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAvailable(String campaignID) {
-                Toast.makeText(getApplication(), "sample available", Toast.LENGTH_SHORT).show();
-                nativeUnitid.setText(nativeUnitIdString);
-                floatUnitId.setText(floatUnitIdString);
-                information = "Game ID: " + getGameProfileId(MainActivity.this) + "\n" +
-                        "Android ID: " + mDeviceHelper.getAndroidId() + "\n" +
-                        "SDK Version: " + getSDKVersion(MainActivity.this);
-                changeTexture();
-
-            }
-
-            @Override
-            public void onError(String error) {
-                Toast.makeText(getApplication(), error, Toast.LENGTH_SHORT).show();
-            }
-
-        });
+        mGreedyGameAgent.setCampaignStateListener(mCampaignStateListener);
 
         mGreedyGameAgent.setCampaignProgressListener(new CampaignProgressListener() {
             @Override
@@ -182,7 +163,7 @@ public class MainActivity extends Activity {
         showFloat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGreedyGameAgent.showFloat(MainActivity.this, floatUnitIdString);
+                showFloatUnit();
             }
         });
 
@@ -213,8 +194,48 @@ public class MainActivity extends Activity {
                 mGreedyGameAgent.startEventRefresh();
             }
         });
-        changeTexture();
+        //changeTexture();
     }
+
+    public void showFloatUnit(){
+        mGreedyGameAgent.showFloat(MainActivity.this, floatUnitIdString);
+    }
+
+    private CampaignStateListener mCampaignStateListener=new CampaignStateListener() {
+        @Override
+        public void onFound() {
+                /*if(!GreedyGameAgent.isCampaignAvailable()){
+                    Toast.makeText(getApplication(),"Campaign not found",Toast.LENGTH_SHORT).show();
+				}*/
+        }
+
+        @Override
+        public void onUnavailable() {
+
+            nativeUnit.setImageResource(R.drawable.native_unit);
+            Toast.makeText(getApplication(), "sample unavailable", Toast.LENGTH_SHORT).show();
+        }
+
+        @SuppressLint("HardwareIds")
+        @Override
+        public void onAvailable(String campaignID) {
+            Toast.makeText(getApplication(), "sample available" + this.toString(), Toast.LENGTH_SHORT).show();
+            nativeUnitid.setText(nativeUnitIdString);
+            floatUnitId.setText(floatUnitIdString);
+            information = "Game ID: " + getGameProfileId(MainActivity.this) + "\n" +
+                    "Android ID: " + Settings.Secure.getString(MainActivity.this.getContentResolver(),
+                    Settings.Secure.ANDROID_ID) + "\n" +
+                    "SDK Version: " + getSDKVersion(MainActivity.this);
+            showFloatUnit();
+            //changeTexture();
+
+        }
+
+        @Override
+        public void onError(String error) {
+            Toast.makeText(getApplication(), error, Toast.LENGTH_SHORT).show();
+        }
+    };
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
@@ -236,7 +257,7 @@ public class MainActivity extends Activity {
         String file = mGreedyGameAgent.getPath(nativeUnitIdString);
         Log.d(TAG, "Path of " + nativeUnitIdString + ": " + file);
         Bitmap bitmap;
-        if (file != null) {
+        if (!TextUtils.isEmpty(file)) {
             bitmap = BitmapFactory.decodeFile(file);
             nativeUnit.setImageBitmap(bitmap);
         } else {
@@ -244,6 +265,7 @@ public class MainActivity extends Activity {
         }
     }
 
+    @SuppressLint("HardwareIds")
     @Override
     public void onResume() {
         super.onResume();
@@ -252,10 +274,12 @@ public class MainActivity extends Activity {
        /* if (isSDKInitialized) {
             mGreedyGameAgent.showFloat(this, floatUnitIdString);
         }*/
+
         if (mSDKHelper != null) {
             //mDonutProgress.setProgress(100);
             information = "Game ID: " + getGameProfileId(MainActivity.this) + "\n" +
-                    "Android ID: " + mDeviceHelper.getAndroidId() + "\n" +
+                    "Android ID: " + Settings.Secure.getString(this.getContentResolver(),
+                    Settings.Secure.ANDROID_ID) + "\n" +
                     "SDK Version: " + getSDKVersion(MainActivity.this);
             nativeUnitid.setText(nativeUnitIdString);
             floatUnitId.setText(floatUnitIdString);
@@ -266,6 +290,7 @@ public class MainActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG,"Activity Destroyed");
+        mGreedyGameAgent.removeCampaignStateListener(mCampaignStateListener);
     }
 
 

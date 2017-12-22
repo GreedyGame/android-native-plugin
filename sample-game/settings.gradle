@@ -1,1 +1,1 @@
-include ':SampleGame', ':greedycommons-debug', ':greedygame-debug'
+include ':SampleGame', ':r-android-sdk-2018'
