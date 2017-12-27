@@ -1,1 +1,1 @@
-include ':SampleGame', ':r-android-sdk-2018'
+include ':SampleGame', ':r-android-sdk'
