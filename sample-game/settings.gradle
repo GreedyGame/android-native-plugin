@@ -1,3 +1,1 @@
-include ':SampleGame', ':greedycommons'
-include ':libGreedyAndroidAgent'
-project(':libGreedyAndroidAgent').projectDir = new File(settingsDir, '../current-sdk/proj.android-studio/libGreedyAndroidAgent')
+include ':SampleGame', ':r-android-sdk'

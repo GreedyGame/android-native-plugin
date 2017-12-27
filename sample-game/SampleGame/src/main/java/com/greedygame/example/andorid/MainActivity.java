@@ -2,255 +2,332 @@ package com.greedygame.example.andorid;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.AppCompatButton;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.greedygame.android.commons.*;
 
 import com.crashlytics.android.Crashlytics;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.greedygame.android.agent.GreedyGameAgent;
-import com.greedygame.android.core.campaign.CampaignManager;
 import com.greedygame.android.core.campaign.CampaignProgressListener;
 import com.greedygame.android.core.campaign.CampaignStateListener;
+import com.greedygame.android.core.helper.SDKHelper;
 
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends Activity implements CampaignStateListener, CampaignProgressListener{
+public class MainActivity extends Activity {
 
-	private static final String TAG = MainActivity.class.getSimpleName();
-	private Runnable mUpdateProgress = null;
-	private float mDownloadProgress = 0;
-	int PERMISSION_ALL = 1;
-	CharSequence information="\n Information not available";
+    private static final String TAG = MainActivity.class.getSimpleName();
+    int PERMISSION_ALL = 1;
+    private String floatUnitIdString = "float-2473";
+    private String nativeUnitIdString = "unit-3408";
+    private Runnable updateProgress = null;
+    private float downloadProgress = 0;
+    private DonutProgress mDonutProgress;
+    private GreedyGameAgent mGreedyGameAgent;
+    private SDKHelper mSDKHelper;
+    private boolean isSDKInitialized = false;
+    ImageView nativeUnit, moreInfo;
+    TextView floatUnitId, nativeUnitid;
+    CharSequence information = "\n Information not available";
+    Button showUII, initSDK, showFloat, removeFloat, showNative, hideNative;
+    private Button mCrashBtn;
+    TextView mEventRefresh;
 
-	@BindView(R.id.menuInfo)
-	ImageView moreInfo;
-	@BindView(R.id.nativeImage)
-	ImageView nativeUnit;
-	@BindView(R.id.donut_progress)
-	DonutProgress mDonutProgress;
-	@BindView(R.id.funitId)
-	TextView floatUnitId;
-	@BindView(R.id.nunitId)
-	TextView nativeUnitid;
-	@BindString(R.string.float_unitID)
-	String floatUnitIdString;
-	@BindString(R.string.native_unitID)
-	String nativeUnitIdString;
-	@BindString(R.string.campaign_available)
-	String campaignAvailable;
-	@BindString(R.string.campaign_unavailable)
-	String campaignUnavailable;
-	@BindString(R.string.campaign_found)
-	String campaignFound;
-	@BindString(R.string.campaign_error)
-	String campaignError;
-	@BindString(R.string.greedygameProfile)
-	String gg_profile;
-	@BindString(R.string.greedygame_sdkVersion)
-	String gg_sdkVersion;
-	private GreedyGameAgent mGreedyGameAgent;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG,"Activity Created");
+        Fabric.with(this, new Crashlytics());
+        setContentView(R.layout.activity_main);
+        mGreedyGameAgent = new GreedyGameAgent();
+        mSDKHelper = SDKHelper.getInstance();
+        String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		Fabric.with(this, new Crashlytics());
-		ButterKnife.bind(this);
+        if (!hasPermissions(this, PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Candara.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+        nativeUnit = (ImageView) findViewById(R.id.nativeImage);
+        mDonutProgress = (DonutProgress) findViewById(R.id.donut_progress);
+        showFloat = (Button) findViewById(R.id.showFloat);
+        moreInfo = (ImageView) findViewById(R.id.menuInfo);
+        showUII = (Button) findViewById(R.id.showUII);
+        removeFloat = (Button) findViewById(R.id.removeFloat);
+        showNative = (Button) findViewById(R.id.showNative);
+        hideNative = (Button) findViewById(R.id.hideNative);
+        initSDK = (Button) findViewById(R.id.initSDK);
+        floatUnitId = (TextView) findViewById(R.id.funitId);
+        nativeUnitid = (TextView) findViewById(R.id.nunitId);
+        mEventRefresh = (TextView) findViewById(R.id.event_refresh);
+        mCrashBtn = (Button) findViewById(R.id.crashBtn);
+        mDonutProgress.setTextSize(15);
+        initSDK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGreedyGameAgent.init(MainActivity.this);
+                runOnUiThread(updateProgress);
+                isSDKInitialized = true;
+                mDonutProgress.setProgress(downloadProgress);
+            }
+        });
 
-		String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        mCrashBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DeviceHelper deviceHelper=new DeviceHelper(null,null);
+                deviceHelper.getAI5();
+            }
+        });
 
-		if(!hasPermissions(this, PERMISSIONS)){
-			ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
-		}
-		CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-				.setDefaultFontPath("fonts/Candara.ttf")
-				.setFontAttrId(R.attr.fontPath)
-				.build()
-		);
-		mGreedyGameAgent = new GreedyGameAgent();
-		mGreedyGameAgent.setCampaignProgressListener(this);
-		mGreedyGameAgent.setCampaignStateListener(this);
-		mUpdateProgress =new Runnable() {
-			@Override
-			public void run() {
-				mDonutProgress.setProgress(mDownloadProgress);
-			}
-		};
-		changeTexture();
-	}
+        updateProgress = new Runnable() {
+            @Override
+            public void run() {
+                //if(!SDKHelper.getInstance().isInitialized()){
+                //Log.d(TAG,"SDK is not initialized");
+                mDonutProgress.setProgress(downloadProgress);
+                //Log.d(TAG,"SDK is initialized");
+                /*//*mProgressDialog.setMessage("Please Wait...");*/
+                /*mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                mProgressDialog.setProgress((int)downloadProgress);
+				mProgressDialog.show();
+				mProgressDialog.setCancelable(false);
+				if(mProgressDialog.getProgress() == 100){
+					mProgressDialog.dismiss();
+				}*/
+                /*if(!SDKHelper.getInstance().isInitialized()){
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    mProgressBar.setProgress((int) downloadProgress);
+                    if(mProgressBar.getProgress()==100){
+                        mProgressBar.setVisibility(View.INVISIBLE);
+                    }
+                }*/
+            }
+        };
 
-	public static boolean hasPermissions(Context context, String... permissions) {
-		if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
-			for (String permission : permissions) {
-				if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+        moreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this, R.style.myDialog));
+                alertDialog.setTitle("Information");
+                alertDialog.setMessage(information);
+                alertDialog.show();
+            }
+        });
 
-	@Override
-	protected void attachBaseContext(Context newBase) {
-		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-	}
+        mGreedyGameAgent.setCampaignStateListener(mCampaignStateListener);
 
-	public void changeTexture() {
-		String file = mGreedyGameAgent.getPath(nativeUnitIdString);
-		Bitmap bitmap ;
-		if(file!=null) {
-			bitmap = BitmapFactory.decodeFile(file);
-			nativeUnit.setImageBitmap(bitmap);
-		} else {
-			nativeUnit.setImageResource(R.drawable.native_unit);
-		}
-	}
+        mGreedyGameAgent.setCampaignProgressListener(new CampaignProgressListener() {
+            @Override
+            public void onProgress(int progress) {
+                downloadProgress = progress;
+                updateProgress.run();
+            }
+        });
 
-	@Override
-	public void onResume(){
-		super.onResume();
+        showUII.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGreedyGameAgent.showUII(floatUnitIdString);
+            }
+        });
+
+        showFloat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFloatUnit();
+            }
+        });
+
+        removeFloat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGreedyGameAgent.removeAllFloat();
+            }
+        });
+
+        showNative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeTexture();
+            }
+        });
+
+        hideNative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nativeUnit.setImageResource(R.drawable.native_unit);
+            }
+        });
+
+        mEventRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mGreedyGameAgent.startEventRefresh();
+            }
+        });
+        //changeTexture();
+    }
+
+    public void showFloatUnit(){
+        mGreedyGameAgent.showFloat(MainActivity.this, floatUnitIdString);
+    }
+
+    private CampaignStateListener mCampaignStateListener=new CampaignStateListener() {
+        @Override
+        public void onFound() {
+                /*if(!GreedyGameAgent.isCampaignAvailable()){
+                    Toast.makeText(getApplication(),"Campaign not found",Toast.LENGTH_SHORT).show();
+				}*/
+        }
+
+        @Override
+        public void onUnavailable() {
+
+            nativeUnit.setImageResource(R.drawable.native_unit);
+            Toast.makeText(getApplication(), "sample unavailable", Toast.LENGTH_SHORT).show();
+        }
+
+        @SuppressLint("HardwareIds")
+        @Override
+        public void onAvailable(String campaignID) {
+            Toast.makeText(getApplication(), "sample available" + this.toString(), Toast.LENGTH_SHORT).show();
+            nativeUnitid.setText(nativeUnitIdString);
+            floatUnitId.setText(floatUnitIdString);
+            information = "Game ID: " + getGameProfileId(MainActivity.this) + "\n" +
+                    "Android ID: " + Settings.Secure.getString(MainActivity.this.getContentResolver(),
+                    Settings.Secure.ANDROID_ID) + "\n" +
+                    "SDK Version: " + getSDKVersion(MainActivity.this);
+            showFloatUnit();
+            //changeTexture();
+
+        }
+
+        @Override
+        public void onError(String error) {
+            Toast.makeText(getApplication(), error, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public void changeTexture() {
+        String file = mGreedyGameAgent.getPath(nativeUnitIdString);
+        Log.d(TAG, "Path of " + nativeUnitIdString + ": " + file);
+        Bitmap bitmap;
+        if (!TextUtils.isEmpty(file)) {
+            bitmap = BitmapFactory.decodeFile(file);
+            nativeUnit.setImageBitmap(bitmap);
+        } else {
+            nativeUnit.setImageResource(R.drawable.native_unit);
+        }
+    }
+
+    @SuppressLint("HardwareIds")
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG,"Activity Resumed");
+        /*//*** Fetching Float Ad unit ***//**/
+       /* if (isSDKInitialized) {
+            mGreedyGameAgent.showFloat(this, floatUnitIdString);
+        }*/
+        mGreedyGameAgent.showFloat(MainActivity.this,floatUnitIdString);
+        if (mSDKHelper != null) {
+            //mDonutProgress.setProgress(100);
+            information = "Game ID: " + getGameProfileId(MainActivity.this) + "\n" +
+                    "Android ID: " + Settings.Secure.getString(this.getContentResolver(),
+                    Settings.Secure.ANDROID_ID) + "\n" +
+                    "SDK Version: " + getSDKVersion(MainActivity.this);
+            nativeUnitid.setText(nativeUnitIdString);
+            floatUnitId.setText(floatUnitIdString);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG,"Activity Destroyed");
+        mGreedyGameAgent.removeCampaignStateListener(mCampaignStateListener);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG,"Activity Paused");
 		/*//*** Fetching Float Ad unit ***//**/
-		mGreedyGameAgent.showFloat(this, floatUnitIdString);
-		if(!TextUtils.isEmpty(CampaignManager.getInstance().getActiveCampaignId())){
-			mDonutProgress.setProgress(100);
-			information="Game ID: "+getGameProfileId(MainActivity.this)+"\n"+
-					"SDK Version: "+getSDKVersion(MainActivity.this);
-			nativeUnitid.setText(nativeUnitIdString);
-			floatUnitId.setText(floatUnitIdString);
-		}
-	}
-	
-	@Override
-	public void onDestroy(){
-		super.onDestroy();
-	}
-	
-	
-	@Override
-	public void onPause(){
-		super.onPause();
-		/*//*** Fetching Float Ad unit ***//**/
-		mGreedyGameAgent.removeFloat(floatUnitIdString);
-	
-	}
+        /*if (isSDKInitialized) {
+            mGreedyGameAgent.removeFloat(floatUnitIdString);
+        }*/
 
-	public String getGameProfileId(Context context) {
-		String gameId = "";
-		if(context != null) {
-			String packageName = context.getPackageName();
-			int resId = context.getResources().getIdentifier(gg_profile, "string", packageName);
-			if(resId > 1) {
-				gameId = context.getString(resId);
-			}
-		}
+    }
 
-		return gameId;
-	}
+    public String getGameProfileId(Context context) {
+        String gameId = "";
+        if (context != null) {
+            String packageName = context.getPackageName();
+            int resId = context.getResources().getIdentifier("greedygame_profile", "string", packageName);
+            if (resId > 1) {
+                gameId = context.getString(resId);
+            }
+        }
 
-	public String getSDKVersion(Context context){
-		String sdkVersion="";
-		if(context != null){
-			String packageName=context.getPackageName();
-			int resId=context.getResources().getIdentifier(gg_sdkVersion,"string",packageName);
-			if(resId>1){
-				sdkVersion=context.getString(resId);
-			}
-		}
-		return sdkVersion;
-	}
+        return gameId;
+    }
 
-	@OnClick(R.id.initSDK)
-	void initializeSDK(){
-		if(!TextUtils.isEmpty(CampaignManager.getInstance().getActiveCampaignId())){
-			mGreedyGameAgent.init(MainActivity.this);
-			runOnUiThread(mUpdateProgress);
-			mDonutProgress.setProgress(mDownloadProgress);
-		}
-	}
-
-	@OnClick(R.id.showUII)
-	void showUII(){
-		mGreedyGameAgent.showUII(floatUnitIdString);
-	}
-
-	@OnClick(R.id.showFloat)
-	void showFloat(){
-		mGreedyGameAgent.showFloat(MainActivity.this, floatUnitIdString);
-	}
-
-	@OnClick(R.id.removeFloat)
-	void removeFloat(){
-		mGreedyGameAgent.removeFloat(floatUnitIdString);
-	}
-
-	@OnClick(R.id.showNative)
-	void showNative(){
-		changeTexture();
-	}
-
-	@OnClick(R.id.hideNative)
-	void hideNative(){
-		nativeUnit.setImageResource(R.drawable.native_unit);
-	}
-
-	@OnClick(R.id.menuInfo)
-	void moreInfo(){
-		AlertDialog.Builder alertDialog=new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this,R.style.myDialog));
-		alertDialog.setTitle("Information");
-		alertDialog.setMessage(information);
-		alertDialog.show();
-	}
-
-	@Override
-	public void onFound() {
-		Log.d(TAG,campaignFound);
-	}
-
-	@Override
-	public void onUnavailable() {
-		Log.d(TAG,campaignUnavailable);
-		Toast.makeText(getApplication(),"sample unavailable",Toast.LENGTH_SHORT).show();
-	}
-
-	@Override
-	public void onAvailable() {
-		Log.d(TAG,campaignAvailable);
-		Toast.makeText(getApplication(),"sample available",Toast.LENGTH_SHORT).show();
-		nativeUnitid.setText(nativeUnitIdString);
-		floatUnitId.setText(floatUnitIdString);
-		information="Game ID: "+getGameProfileId(MainActivity.this)+"\n"+
-				"SDK Version: "+getSDKVersion(MainActivity.this);
-		changeTexture();
-	}
-
-	@Override
-	public void onError(String error) {
-		Log.d(TAG,campaignError);
-		Toast.makeText(getApplication(),error,Toast.LENGTH_SHORT).show();
-	}
-
-	@Override
-	public void onProgress(int progress) {
-		mDownloadProgress =progress;
-		mUpdateProgress.run();
-	}
+    public String getSDKVersion(Context context) {
+        String sdkVersion = "";
+        if (context != null) {
+            String packageName = context.getPackageName();
+            int resId = context.getResources().getIdentifier("greedygame_sdk_version", "string", packageName);
+            if (resId > 1) {
+                sdkVersion = context.getString(resId);
+            }
+        }
+        return sdkVersion;
+    }
 }
