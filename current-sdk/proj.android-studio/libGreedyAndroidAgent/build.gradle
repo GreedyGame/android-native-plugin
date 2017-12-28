@@ -1,2 +1,0 @@
-configurations.create("default")
-artifacts.add("default", file('r-android-sdk-2009.aar'))
