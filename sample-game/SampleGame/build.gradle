@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId "com.greedygame.example.andorid"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 23
         multiDexEnabled true
     }

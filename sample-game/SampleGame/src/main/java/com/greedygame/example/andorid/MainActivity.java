@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.greedygame.android.commons.*;
 
 import com.crashlytics.android.Crashlytics;
@@ -62,11 +63,12 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"Activity Created");
+        Log.d(TAG, "Activity Created");
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         mGreedyGameAgent = new GreedyGameAgent();
         mSDKHelper = SDKHelper.getInstance();
+        SDKHelper.enableAdmob = true;
         String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         if (!hasPermissions(this, PERMISSIONS)) {
@@ -104,7 +106,7 @@ public class MainActivity extends Activity {
         mCrashBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DeviceHelper deviceHelper=new DeviceHelper(null,null);
+                DeviceHelper deviceHelper = new DeviceHelper(null, null);
                 deviceHelper.getAI5();
             }
         });
@@ -198,11 +200,11 @@ public class MainActivity extends Activity {
         //changeTexture();
     }
 
-    public void showFloatUnit(){
+    public void showFloatUnit() {
         mGreedyGameAgent.showFloat(MainActivity.this, floatUnitIdString);
     }
 
-    private CampaignStateListener mCampaignStateListener=new CampaignStateListener() {
+    private CampaignStateListener mCampaignStateListener = new CampaignStateListener() {
         @Override
         public void onFound() {
                 /*if(!GreedyGameAgent.isCampaignAvailable()){
@@ -275,12 +277,12 @@ public class MainActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG,"Activity Resumed");
+        Log.d(TAG, "Activity Resumed");
         /*//*** Fetching Float Ad unit ***//**/
        /* if (isSDKInitialized) {
             mGreedyGameAgent.showFloat(this, floatUnitIdString);
         }*/
-        mGreedyGameAgent.showFloat(MainActivity.this,floatUnitIdString);
+        mGreedyGameAgent.showFloat(MainActivity.this, floatUnitIdString);
         if (mSDKHelper != null) {
             //mDonutProgress.setProgress(100);
             information = "Game ID: " + getGameProfileId(MainActivity.this) + "\n" +
@@ -295,7 +297,7 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG,"Activity Destroyed");
+        Log.d(TAG, "Activity Destroyed");
         mGreedyGameAgent.removeCampaignStateListener(mCampaignStateListener);
     }
 
@@ -303,8 +305,8 @@ public class MainActivity extends Activity {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG,"Activity Paused");
-		/*//*** Fetching Float Ad unit ***//**/
+        Log.d(TAG, "Activity Paused");
+        /*//*** Fetching Float Ad unit ***//**/
         /*if (isSDKInitialized) {
             mGreedyGameAgent.removeFloat(floatUnitIdString);
         }*/
