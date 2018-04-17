@@ -5,34 +5,27 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
-import android.support.v7.widget.AppCompatButton;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.greedygame.android.commons.*;
-
 import com.crashlytics.android.Crashlytics;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.greedygame.android.agent.GreedyGameAgent;
+import com.greedygame.android.commons.DeviceHelper;
 import com.greedygame.android.core.campaign.CampaignProgressListener;
 import com.greedygame.android.core.campaign.CampaignStateListener;
 import com.greedygame.android.core.helper.SDKHelper;
@@ -66,9 +59,15 @@ public class MainActivity extends Activity {
         Log.d(TAG, "Activity Created");
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
-        mGreedyGameAgent = new GreedyGameAgent();
+        mGreedyGameAgent = new GreedyGameAgent.Builder(this)
+                .enableAdmob(true)
+                .enableFacebook(true)
+                .enableMopub(true)
+                .enableCrash(true)
+                .addUnitId("float-2473")
+                .addUnitId("unit-3408")
+                .build();
         mSDKHelper = SDKHelper.getInstance();
-        SDKHelper.enableAdmob = true;
         String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         if (!hasPermissions(this, PERMISSIONS)) {
@@ -96,7 +95,7 @@ public class MainActivity extends Activity {
         initSDK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGreedyGameAgent.init(MainActivity.this);
+                mGreedyGameAgent.init();
                 runOnUiThread(updateProgress);
                 isSDKInitialized = true;
                 mDonutProgress.setProgress(downloadProgress);
