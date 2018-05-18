@@ -229,11 +229,6 @@ public class MainActivity extends Activity {
         public void onError(String error) {
             Toast.makeText(getApplication(), error, Toast.LENGTH_SHORT).show();
         }
-
-        @Override
-        public void onProceed() {
-
-        }
     };
 
     public static boolean hasPermissions(Context context, String... permissions) {
