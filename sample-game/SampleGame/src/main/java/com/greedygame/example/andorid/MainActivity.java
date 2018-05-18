@@ -147,14 +147,6 @@ public class MainActivity extends Activity {
 
         mGreedyGameAgent.setCampaignStateListener(mCampaignStateListener);
 
-        mGreedyGameAgent.setCampaignProgressListener(new CampaignProgressListener() {
-            @Override
-            public void onProgress(int progress) {
-                downloadProgress = progress;
-                updateProgress.run();
-            }
-        });
-
         showUII.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
