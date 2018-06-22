@@ -26,9 +26,7 @@ import com.crashlytics.android.Crashlytics;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.greedygame.android.agent.GreedyGameAgent;
 import com.greedygame.android.commons.DeviceHelper;
-import com.greedygame.android.core.campaign.CampaignProgressListener;
 import com.greedygame.android.core.campaign.CampaignStateListener;
-import com.greedygame.android.core.helper.SDKHelper;
 
 import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -44,7 +42,6 @@ public class MainActivity extends Activity {
     private float downloadProgress = 0;
     private DonutProgress mDonutProgress;
     private GreedyGameAgent mGreedyGameAgent;
-    private SDKHelper mSDKHelper;
     private boolean isSDKInitialized = false;
     ImageView nativeUnit, moreInfo;
     TextView floatUnitId, nativeUnitid;
@@ -67,7 +64,6 @@ public class MainActivity extends Activity {
                 .addUnitId("float-2473")
                 .addUnitId("unit-3408")
                 .build();
-        mSDKHelper = SDKHelper.getInstance();
         String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         if (!hasPermissions(this, PERMISSIONS)) {
@@ -269,15 +265,6 @@ public class MainActivity extends Activity {
             mGreedyGameAgent.showFloat(this, floatUnitIdString);
         }*/
         mGreedyGameAgent.showFloat(MainActivity.this, floatUnitIdString);
-        if (mSDKHelper != null) {
-            //mDonutProgress.setProgress(100);
-            information = "Game ID: " + getGameProfileId(MainActivity.this) + "\n" +
-                    "Android ID: " + Settings.Secure.getString(this.getContentResolver(),
-                    Settings.Secure.ANDROID_ID) + "\n" +
-                    "SDK Version: " + getSDKVersion(MainActivity.this);
-            nativeUnitid.setText(nativeUnitIdString);
-            floatUnitId.setText(floatUnitIdString);
-        }
     }
 
     @Override
