@@ -63,6 +63,7 @@ public class MainActivity extends Activity {
                 .enableCrash(true)
                 .addUnitId("float-2473")
                 .addUnitId("unit-3408")
+                .setGameId("92021698")
                 .build();
         String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
@@ -192,12 +193,6 @@ public class MainActivity extends Activity {
     }
 
     private CampaignStateListener mCampaignStateListener = new CampaignStateListener() {
-        @Override
-        public void onFound() {
-                /*if(!GreedyGameAgent.isCampaignAvailable()){
-                    Toast.makeText(getApplication(),"Campaign not found",Toast.LENGTH_SHORT).show();
-				}*/
-        }
 
         @Override
         public void onUnavailable() {
