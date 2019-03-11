@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.greedygame:core-9.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/core-9.0.aar/308d94a89109e67cc7e9b36bddf464e4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/core-9.0.aar/308d94a89109e67cc7e9b36bddf464e4/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.greedygame/core/9.0/f58d54164850a82b5944cc4c4195921ec6033cc0/core-9.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

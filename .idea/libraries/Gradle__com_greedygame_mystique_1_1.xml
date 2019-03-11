@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.greedygame:mystique-1.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mystique-1.1.aar/7bb0cc40a8dadbc31fe212c4e618a6e0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mystique-1.1.aar/7bb0cc40a8dadbc31fe212c4e618a6e0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.greedygame/mystique/1.1/2d2ea904d40970f49d41cd9df21d95452d5861c5/mystique-1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

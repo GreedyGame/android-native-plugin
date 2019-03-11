@@ -3,10 +3,16 @@ package com.greedygame.androidsample
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import com.google.android.gms.ads.AdListener
+
+import com.greedygame.android.agent.AdListener
+
+
+import com.greedygame.android.agent.GreedyGameAds
 import com.greedygame.android.core.campaign.CampaignStateListener
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), CampaignStateListener {
+class MainActivity : AppCompatActivity(), AdListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -15,11 +21,11 @@ class MainActivity : AppCompatActivity(), CampaignStateListener {
                 .addUnitId("slot-1000")
                 .addUnitId("slot-1001")
                 .enableAdmob(true)
-                .withAgentListener(this)
+                .withAdListener(this)
                 .build()
 
         showAd.setOnClickListener {
-            greedyGameAgent?.init()
+            greedyGameAgent?.load()
         }
     }
 
