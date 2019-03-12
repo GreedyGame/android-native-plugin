@@ -3,13 +3,8 @@ package com.greedygame.androidsample
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import com.google.android.gms.ads.AdListener
-
 import com.greedygame.android.agent.AdListener
-
-
 import com.greedygame.android.agent.GreedyGameAds
-import com.greedygame.android.core.campaign.CampaignStateListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), AdListener {
