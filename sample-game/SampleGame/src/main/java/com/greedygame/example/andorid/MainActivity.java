@@ -22,13 +22,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.greedygame.android.agent.GreedyGameAgent;
 import com.greedygame.android.commons.DeviceHelper;
 import com.greedygame.android.core.campaign.CampaignStateListener;
 
-import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -54,7 +52,6 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "Activity Created");
-        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         mGreedyGameAgent = new GreedyGameAgent.Builder(this)
                 .enableAdmob(true)
