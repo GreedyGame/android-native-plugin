@@ -8,15 +8,14 @@
     android:background="@color/colorPrimary"
     tools:context=".MainActivity">
 
-    <com.greedygame.android.adview.NativeAdView
+    <ImageView
         android:id="@+id/nativead"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:unitId="slot-1000"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/showAd"
