@@ -6,7 +6,7 @@ GreedyGame Android's SDK Reference
 This SDK from GreedyGame can be used to integrate native-android games. GreedyGame SDK helps you earn revenue by displaying native ads which doesn't annoy the user. Sign into publisher.greedygame.com for more info. 
 
 # Requirements
-* Android API Version: 14
+* Android API Version: 17
 * Gradle 1.6 or lastest
 
 # Integration
